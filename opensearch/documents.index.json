@@ -1,0 +1,88 @@
+{
+  "settings": {
+    "index": {
+      "number_of_shards": 1,
+      "number_of_replicas": 1
+    },
+    "analysis": {
+      "analyzer": {
+        "legal_text": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase"
+          ]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "dynamic": "strict",
+    "properties": {
+      "document_id": {
+        "type": "keyword"
+      },
+      "document_version_id": {
+        "type": "keyword"
+      },
+      "source_id": {
+        "type": "keyword"
+      },
+      "corpus_release_id": {
+        "type": "keyword"
+      },
+      "language": {
+        "type": "keyword"
+      },
+      "document_type": {
+        "type": "keyword"
+      },
+      "court_key": {
+        "type": "keyword"
+      },
+      "jurisdiction_key": {
+        "type": "keyword"
+      },
+      "citations": {
+        "type": "keyword"
+      },
+      "title": {
+        "type": "text",
+        "analyzer": "legal_text",
+        "fields": {
+          "raw": {
+            "type": "keyword",
+            "ignore_above": 512
+          }
+        }
+      },
+      "decision_date": {
+        "type": "date",
+        "format": "strict_date"
+      },
+      "publication_date": {
+        "type": "date",
+        "format": "strict_date"
+      },
+      "published": {
+        "type": "boolean"
+      },
+      "is_synthetic": {
+        "type": "boolean"
+      },
+      "restricted": {
+        "type": "boolean"
+      },
+      "canonical_key": {
+        "type": "keyword"
+      },
+      "identifiers": {
+        "type": "keyword"
+      },
+      "short_description": {
+        "type": "text",
+        "analyzer": "legal_text"
+      }
+    }
+  }
+}

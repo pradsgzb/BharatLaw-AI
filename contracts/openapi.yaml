@@ -1,0 +1,4721 @@
+openapi: 3.1.0
+info:
+  title: BharatLaw AI Reference API
+  version: 1.0.0
+  description: Implementation contract. Not a running service. All permissions are
+    enforced server-side; examples are synthetic.
+servers:
+- url: http://localhost:8000
+  description: Intended local development endpoint; not deployed by this package.
+security:
+- bearerAuth: []
+paths:
+  /health/live:
+    get:
+      operationId: liveness
+      summary: Process health
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security: []
+      x-required-permission: research:read
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Health'
+  /health/ready:
+    get:
+      operationId: readiness
+      summary: Dependency readiness
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security: []
+      x-required-permission: research:read
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Health'
+  /v1/me:
+    get:
+      operationId: me
+      summary: Authenticated identity and tenant memberships
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: research:read
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserContext'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/coverage:
+    get:
+      operationId: coverage
+      summary: Published source coverage
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: research:read
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Coverage'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/search:
+    post:
+      operationId: search
+      summary: Authorized hybrid legal search
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: research:read
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResults'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRequest'
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/documents/{document_id}:
+    get:
+      operationId: getDocument
+      summary: Read a public legal document
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: research:read
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LegalDocument'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      parameters:
+      - name: document_id
+        in: path
+        required: true
+        schema: &id001
+          type: string
+          format: uuid
+      - name: release_id
+        in: query
+        schema: *id001
+        description: Defaults to current release; run viewers must use the pinned
+          release. Current restrictions still apply.
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/documents/{document_id}/units:
+    get:
+      operationId: getUnits
+      summary: Read structural units
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: research:read
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnitList'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      parameters:
+      - name: document_id
+        in: path
+        required: true
+        schema: *id001
+      - name: cursor
+        in: query
+        schema: &id002
+          type: string
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 50
+      - name: release_id
+        in: query
+        schema: *id001
+        description: Defaults to current release; run viewers must use the pinned
+          release. Current restrictions still apply.
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/source-spans/{span_id}:
+    get:
+      operationId: getPublicSpan
+      summary: Read a source passage and anchor
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: research:read
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Span'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      parameters:
+      - name: span_id
+        in: path
+        required: true
+        schema: *id001
+      - name: release_id
+        in: query
+        schema: *id001
+        description: Defaults to current release; run viewers must use the pinned
+          release. Current restrictions still apply.
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/provisions/{unit_id}/versions:
+    get:
+      operationId: versionHistory
+      summary: Reviewed version and applicability history
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: research:read
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VersionHistory'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      parameters:
+      - name: unit_id
+        in: path
+        required: true
+        schema: *id001
+      - name: release_id
+        in: query
+        schema: *id001
+        description: Defaults to current release; run viewers must use the pinned
+          release. Current restrictions still apply.
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/documents/{document_id}/citations:
+    get:
+      operationId: citationGraph
+      summary: Citation and reviewed treatment evidence
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: research:read
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CitationGraph'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      parameters:
+      - name: document_id
+        in: path
+        required: true
+        schema: *id001
+      - name: release_id
+        in: query
+        schema: *id001
+        description: Defaults to current release; run viewers must use the pinned
+          release. Current restrictions still apply.
+      - name: authority_cutoff
+        in: query
+        required: true
+        schema: &id003
+          type: string
+          format: date
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/research/runs:
+    post:
+      operationId: createResearch
+      summary: Create bounded research run
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: research:write
+      responses:
+        '202':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Run'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      parameters:
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          minLength: 8
+          maxLength: 128
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResearchRequest'
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/research/runs/{run_id}:
+    get:
+      operationId: getRun
+      summary: Get durable research state
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: research:read
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Run'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      parameters:
+      - name: run_id
+        in: path
+        required: true
+        schema: *id001
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/research/runs/{run_id}/events:
+    get:
+      operationId: runEvents
+      summary: Progress and verified final events
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: research:read
+      responses:
+        '200':
+          description: Authenticated SSE. Safe progress/source/final events only;
+            no unverified model tokens.
+          content:
+            text/event-stream:
+              schema:
+                type: string
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      parameters:
+      - name: run_id
+        in: path
+        required: true
+        schema: *id001
+      - name: Last-Event-ID
+        in: header
+        required: false
+        schema:
+          type: string
+          pattern: ^[0-9]+$
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/research/runs/{run_id}/cancel:
+    post:
+      operationId: cancelRun
+      summary: Request cooperative cancellation
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: research:write
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Run'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      parameters:
+      - name: run_id
+        in: path
+        required: true
+        schema: *id001
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          minLength: 8
+          maxLength: 128
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/research/runs/{run_id}/clarifications:
+    post:
+      operationId: clarifyRun
+      summary: Submit requested missing facts
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: research:write
+      responses:
+        '202':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Run'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      parameters:
+      - name: run_id
+        in: path
+        required: true
+        schema: *id001
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          minLength: 8
+          maxLength: 128
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Clarification'
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/answers/{answer_id}/exports:
+    post:
+      operationId: createExport
+      summary: Create permission-scoped export
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: export:write
+      responses:
+        '202':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Export'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      parameters:
+      - name: answer_id
+        in: path
+        required: true
+        schema: *id001
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          minLength: 8
+          maxLength: 128
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExportRequest'
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/exports/{export_id}:
+    get:
+      operationId: getExport
+      summary: Export job state
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: export:read
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Export'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      parameters:
+      - name: export_id
+        in: path
+        required: true
+        schema: *id001
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/exports/{export_id}/approve:
+    post:
+      operationId: approveExport
+      summary: Approve export containing private evidence
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: export:approve
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Export'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      parameters:
+      - name: export_id
+        in: path
+        required: true
+        schema: *id001
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          minLength: 8
+          maxLength: 128
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/exports/{export_id}/download:
+    post:
+      operationId: downloadExport
+      summary: Create short-lived authorized download link
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: export:read
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Download'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      parameters:
+      - name: export_id
+        in: path
+        required: true
+        schema: *id001
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/answers/{answer_id}/feedback:
+    post:
+      operationId: feedback
+      summary: Report a research issue
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: research:read
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Receipt'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      parameters:
+      - name: answer_id
+        in: path
+        required: true
+        schema: *id001
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          minLength: 8
+          maxLength: 128
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeedbackRequest'
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/workspaces:
+    get:
+      operationId: workspaces
+      summary: List only authorized workspaces
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: research:read
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkspaceList'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+    post:
+      operationId: createWorkspace
+      summary: Create workspace
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: workspace:manage
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workspace'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      parameters:
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          minLength: 8
+          maxLength: 128
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkspaceCreate'
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/workspaces/{workspace_id}:
+    get:
+      operationId: getWorkspace
+      summary: Read authorized workspace
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: research:read
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workspace'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema: *id001
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/workspaces/{workspace_id}/members:
+    post:
+      operationId: addWorkspaceMember
+      summary: Grant matter access to an existing tenant member
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: workspace:manage
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Receipt'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema: *id001
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          minLength: 8
+          maxLength: 128
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkspaceMember'
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/workspaces/{workspace_id}/members/{user_id}:
+    delete:
+      operationId: removeWorkspaceMember
+      summary: Revoke matter access and invalidate ACL revision
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: workspace:manage
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Receipt'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema: *id001
+      - name: user_id
+        in: path
+        required: true
+        schema: *id001
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          minLength: 8
+          maxLength: 128
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/uploads:
+    post:
+      operationId: beginUpload
+      summary: Create quarantined PDF upload
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: documents:write
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadSession'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      parameters:
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          minLength: 8
+          maxLength: 128
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UploadRequest'
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/private-documents/{document_id}/complete:
+    post:
+      operationId: completeUpload
+      summary: Verify uploaded checksum and enqueue scanning
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: documents:write
+      responses:
+        '202':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrivateDocument'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      parameters:
+      - name: document_id
+        in: path
+        required: true
+        schema: *id001
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          minLength: 8
+          maxLength: 128
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UploadComplete'
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/private-documents/{document_id}:
+    get:
+      operationId: privateDocument
+      summary: Private document status
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: documents:read
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrivateDocument'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      parameters:
+      - name: document_id
+        in: path
+        required: true
+        schema: *id001
+    delete:
+      operationId: deletePrivateDocument
+      summary: Revoke access and start retention-aware deletion
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: documents:delete
+      responses:
+        '202':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeletionStatus'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      parameters:
+      - name: document_id
+        in: path
+        required: true
+        schema: *id001
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          minLength: 8
+          maxLength: 128
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/private-spans/{span_id}:
+    get:
+      operationId: getPrivateSpan
+      summary: Read an authorized private passage
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: documents:read
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Span'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      parameters:
+      - name: span_id
+        in: path
+        required: true
+        schema: *id001
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/privacy/deletions:
+    post:
+      operationId: requestDeletion
+      summary: Request access withdrawal and policy-governed erasure
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: privacy:write
+      responses:
+        '202':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeletionStatus'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      parameters:
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          minLength: 8
+          maxLength: 128
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeletionRequest'
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/privacy/deletions/{deletion_id}:
+    get:
+      operationId: getDeletion
+      summary: Read deletion and retention status
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: privacy:read
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeletionStatus'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      parameters:
+      - name: deletion_id
+        in: path
+        required: true
+        schema: *id001
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/admin/sources:
+    get:
+      operationId: sources
+      summary: Source registry
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: sources:read
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceList'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+    post:
+      operationId: createSource
+      summary: Register a disabled source
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: sources:manage
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Source'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      parameters:
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          minLength: 8
+          maxLength: 128
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SourceCreate'
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/admin/source-policy-reviews:
+    post:
+      operationId: sourcePolicyReview
+      summary: Record source use approval
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: sources:approve
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Receipt'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      parameters:
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          minLength: 8
+          maxLength: 128
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SourcePolicyReview'
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/admin/imports:
+    post:
+      operationId: importManifest
+      summary: Import a reviewed storage manifest
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: ingestion:write
+      responses:
+        '202':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      parameters:
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          minLength: 8
+          maxLength: 128
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImportRequest'
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/admin/jobs/{job_id}:
+    get:
+      operationId: getJob
+      summary: Read ingestion job
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: ingestion:read
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      parameters:
+      - name: job_id
+        in: path
+        required: true
+        schema: *id001
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/admin/jobs/{job_id}/retry:
+    post:
+      operationId: retryJob
+      summary: Retry an eligible failed stage
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: ingestion:write
+      responses:
+        '202':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      parameters:
+      - name: job_id
+        in: path
+        required: true
+        schema: *id001
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          minLength: 8
+          maxLength: 128
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/admin/editorial-reviews:
+    post:
+      operationId: editorialReview
+      summary: Review exact versioned legal metadata
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: legal:review
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Receipt'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      parameters:
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          minLength: 8
+          maxLength: 128
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditorialReview'
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/admin/corpus-releases:
+    post:
+      operationId: buildRelease
+      summary: Build candidate release
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: corpus:build
+      responses:
+        '202':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Release'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      parameters:
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          minLength: 8
+          maxLength: 128
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReleaseBuild'
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/admin/corpus-releases/{release_id}/publish:
+    post:
+      operationId: publishRelease
+      summary: Publish after independent approval
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: corpus:publish
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Release'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      parameters:
+      - name: release_id
+        in: path
+        required: true
+        schema: *id001
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          minLength: 8
+          maxLength: 128
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublishApproval'
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/admin/takedowns:
+    post:
+      operationId: takedown
+      summary: Immediately block serving of a source
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: sources:restrict
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Receipt'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      parameters:
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          minLength: 8
+          maxLength: 128
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TakedownRequest'
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/admin/audit:
+    get:
+      operationId: audit
+      summary: Permission-scoped security metadata
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: audit:read
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuditPage'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      parameters:
+      - name: cursor
+        in: query
+        schema: *id002
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 50
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/usage:
+    get:
+      operationId: usage
+      summary: Tenant budget and usage
+      description: See docs/API_AND_WORKFLOWS.md for authorization, lifecycle and
+        error invariants.
+      security:
+      - bearerAuth: []
+      x-required-permission: usage:read
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Usage'
+        '400':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Structured error; never disclose another tenant resource.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+    parameters:
+    - $ref: '#/components/parameters/TenantSelector'
+  /v1/answers/{answer_id}:
+    parameters:
+    - name: answer_id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    - $ref: '#/components/parameters/TenantSelector'
+    get:
+      operationId: getAnswer
+      summary: Read an answer after current workspace and source-availability checks
+      x-required-permission: research:read
+      responses:
+        '200':
+          description: Published answer with current availability; never silently
+            replace original citations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Answer'
+        '404':
+          description: Not found or not authorized
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    ResearchRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        workspace_id: *id001
+        question:
+          type: string
+          minLength: 3
+          maxLength: 12000
+        language:
+          type: string
+          enum:
+          - en
+          - hi
+        research_mode:
+          type: string
+          enum:
+          - contemporaneous
+          - retrospective_analysis
+        depth:
+          type: string
+          enum:
+          - quick
+          - deep
+        jurisdiction_key: *id002
+        event_date:
+          anyOf:
+          - *id003
+          - type: 'null'
+        law_as_of: *id003
+        authority_cutoff: *id003
+        include_private_documents: &id004
+          type: boolean
+        corpus_release_id:
+          anyOf:
+          - *id001
+          - type: 'null'
+      required:
+      - workspace_id
+      - question
+      - language
+      - research_mode
+      - depth
+      - jurisdiction_key
+      - law_as_of
+      - authority_cutoff
+      - include_private_documents
+    Answer:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      $id: https://example.org/bharatlaw/contracts/answer.schema.json
+      title: BharatLaw answer v1
+      type: object
+      additionalProperties: false
+      properties:
+        schema_version:
+          const: '1.0'
+        answer_id:
+          type: string
+          format: uuid
+        run_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum:
+          - answered
+          - partial
+          - abstained
+          - needs_clarification
+        language:
+          type: string
+          enum:
+          - en
+          - hi
+        direct_response:
+          type: string
+        law_as_of:
+          type: string
+          format: date
+        authority_cutoff:
+          type: string
+          format: date
+        corpus_release_id:
+          type: string
+          format: uuid
+        claims:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              claim_id:
+                type: string
+                pattern: ^C[1-9][0-9]*$
+              text:
+                type: string
+              kind:
+                type: string
+                enum:
+                - legal_proposition
+                - analysis
+                - user_provided_fact
+                - limitation
+              support_status:
+                type: string
+                enum:
+                - supported
+                - conflict
+                - needs_review
+                - not_applicable
+              supporting_evidence:
+                type: array
+                items:
+                  type: string
+                  pattern: ^E[1-9][0-9]*$
+                minItems: 0
+              contrary_evidence:
+                type: array
+                items:
+                  type: string
+                  pattern: ^E[1-9][0-9]*$
+                minItems: 0
+            required:
+            - claim_id
+            - text
+            - kind
+            - support_status
+            - supporting_evidence
+            - contrary_evidence
+          minItems: 0
+        citations:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              handle:
+                type: string
+                pattern: ^E[1-9][0-9]*$
+              span_id:
+                type: string
+                format: uuid
+              source_class:
+                type: string
+                enum:
+                - public_authority
+                - private_upload
+              source_title:
+                type: string
+              display_citation:
+                type: string
+              pinpoint:
+                type: string
+              viewer_path:
+                type: string
+                pattern: ^/v1/
+              official_url:
+                anyOf:
+                - type: string
+                  format: uri
+                - type: 'null'
+              excerpt:
+                type: string
+              source_sha256:
+                type: string
+                pattern: ^[a-f0-9]{64}$
+                description: SHA-256 of UTF-8 canonical unit text containing the cited
+                  span; not the PDF byte hash. Resolve source artifact hash through
+                  immutable document/version lineage.
+              role_label:
+                type: string
+                enum:
+                - operative_text
+                - court_reasoning
+                - party_argument
+                - quoted_authority
+                - headnote
+                - footnote
+                - unclassified
+              opinion_type:
+                type: string
+            required:
+            - handle
+            - span_id
+            - source_class
+            - source_title
+            - display_citation
+            - pinpoint
+            - viewer_path
+            - official_url
+            - excerpt
+            - source_sha256
+            - role_label
+            - opinion_type
+          minItems: 0
+        assumptions:
+          type: array
+          items:
+            type: string
+          minItems: 0
+        limitations:
+          type: array
+          items:
+            type: string
+          minItems: 0
+        clarifying_questions:
+          type: array
+          items:
+            type: string
+          minItems: 0
+        coverage:
+          type: object
+          additionalProperties: false
+          properties:
+            source_keys:
+              type: array
+              items:
+                type: string
+              minItems: 0
+            court_keys:
+              type: array
+              items:
+                type: string
+              minItems: 0
+            covered_through:
+              anyOf:
+              - type: string
+                format: date
+              - type: 'null'
+            last_successful_sync_at:
+              anyOf:
+              - type: string
+                format: date-time
+              - type: 'null'
+            known_gaps:
+              type: array
+              items:
+                type: string
+              minItems: 0
+          required:
+          - source_keys
+          - court_keys
+          - covered_through
+          - last_successful_sync_at
+          - known_gaps
+        verification:
+          type: object
+          additionalProperties: false
+          properties:
+            deterministic_integrity_passed:
+              type: boolean
+            semantic_assessment:
+              type: string
+              enum:
+              - supported
+              - partial
+              - conflicting
+              - insufficient
+              - not_applicable
+            lawyer_reviewed:
+              type: boolean
+            verifier_profile:
+              type: string
+          required:
+          - deterministic_integrity_passed
+          - semantic_assessment
+          - lawyer_reviewed
+          - verifier_profile
+      required:
+      - schema_version
+      - answer_id
+      - run_id
+      - status
+      - language
+      - direct_response
+      - law_as_of
+      - authority_cutoff
+      - corpus_release_id
+      - claims
+      - citations
+      - assumptions
+      - limitations
+      - clarifying_questions
+      - coverage
+      - verification
+    LegalDocument:
+      type: object
+      additionalProperties: false
+      properties:
+        schema_version:
+          const: '1.0'
+        is_synthetic: *id004
+        document_id: *id001
+        document_version_id: *id001
+        canonical_key: *id002
+        document_type:
+          type: string
+          enum:
+          - constitution
+          - act
+          - rule
+          - regulation
+          - notification
+          - ordinance
+          - judgment
+          - order
+          - amendment
+          - circular
+        title: *id002
+        jurisdiction_key: *id002
+        language:
+          type: string
+          enum:
+          - en
+          - hi
+        representation_kind:
+          type: string
+          enum:
+          - official_published
+          - editorial_consolidation
+          - official_translation
+          - machine_translation
+          - synthetic_fixture
+        publication_date:
+          anyOf:
+          - *id003
+          - type: 'null'
+        edition_as_of:
+          anyOf:
+          - *id003
+          - type: 'null'
+        decision_date:
+          anyOf:
+          - *id003
+          - type: 'null'
+        source:
+          type: object
+          additionalProperties: false
+          properties:
+            source_id: *id001
+            artifact_id: *id001
+            source_url:
+              type: string
+              format: uri
+            fetched_at: &id006
+              type: string
+              format: date-time
+            artifact_sha256: &id005
+              type: string
+              pattern: ^[a-f0-9]{64}$
+              description: SHA-256 of UTF-8 canonical unit text containing the cited
+                span; not the PDF byte hash. Resolve source artifact hash through
+                immutable document/version lineage.
+            media_type: *id002
+            object_version: *id002
+            policy_id: *id001
+          required:
+          - source_id
+          - artifact_id
+          - source_url
+          - fetched_at
+          - artifact_sha256
+          - media_type
+          - object_version
+          - policy_id
+        extraction:
+          type: object
+          additionalProperties: false
+          properties:
+            extraction_id: *id001
+            parser_profile: *id002
+            config_sha256: *id005
+            used_ocr: *id004
+            review_state:
+              type: string
+              enum:
+              - pending
+              - quarantined
+              - validated
+              - approved
+              - fixture_only
+          required:
+          - extraction_id
+          - parser_profile
+          - config_sha256
+          - used_ocr
+          - review_state
+        units:
+          type: array
+          items: &id008
+            type: object
+            additionalProperties: false
+            properties:
+              unit_id: *id001
+              unit_version_id: *id001
+              parent_unit_id:
+                anyOf:
+                - *id001
+                - type: 'null'
+              unit_type:
+                type: string
+                enum:
+                - article
+                - section
+                - subsection
+                - clause
+                - proviso
+                - explanation
+                - schedule
+                - paragraph
+                - footnote
+                - table
+                - heading
+              unit_key: *id002
+              display_label: *id002
+              structural_path:
+                type: array
+                items: *id002
+                minItems: 1
+              original_paragraph_label:
+                anyOf:
+                - *id002
+                - type: 'null'
+              opinion_type:
+                type: string
+                enum:
+                - majority
+                - concurrence
+                - dissent
+                - plurality
+                - per_curiam
+                - unknown
+                - not_applicable
+              role_label:
+                type: string
+                enum:
+                - operative_text
+                - court_reasoning
+                - party_argument
+                - quoted_authority
+                - headnote
+                - footnote
+                - unclassified
+              exact_text:
+                type: string
+                minLength: 1
+              text_sha256: *id005
+              language:
+                type: string
+                enum:
+                - en
+                - hi
+              spans:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: false
+                  properties:
+                    span_id: *id001
+                    char_start: &id007
+                      type: integer
+                      minimum: 0
+                    char_end:
+                      type: integer
+                      minimum: 1
+                    quote_sha256: *id005
+                    anchors:
+                      type: array
+                      items: &id009
+                        type: object
+                        additionalProperties: false
+                        properties:
+                          pdf_page_number:
+                            type: integer
+                            minimum: 1
+                          printed_page_label:
+                            anyOf:
+                            - *id002
+                            - type: 'null'
+                          bbox:
+                            type: array
+                            items:
+                              type: number
+                              minimum: 0
+                              maximum: 1
+                            minItems: 4
+                            maxItems: 4
+                          origin:
+                            const: top-left
+                        required:
+                        - pdf_page_number
+                        - printed_page_label
+                        - bbox
+                        - origin
+                      minItems: 0
+                  required:
+                  - span_id
+                  - char_start
+                  - char_end
+                  - quote_sha256
+                  - anchors
+                minItems: 1
+            required:
+            - unit_id
+            - unit_version_id
+            - parent_unit_id
+            - unit_type
+            - unit_key
+            - display_label
+            - structural_path
+            - original_paragraph_label
+            - opinion_type
+            - role_label
+            - exact_text
+            - text_sha256
+            - language
+            - spans
+          minItems: 1
+      required:
+      - schema_version
+      - is_synthetic
+      - document_id
+      - document_version_id
+      - canonical_key
+      - document_type
+      - title
+      - jurisdiction_key
+      - language
+      - representation_kind
+      - publication_date
+      - edition_as_of
+      - decision_date
+      - source
+      - extraction
+      - units
+    Citation:
+      type: object
+      additionalProperties: false
+      properties:
+        handle:
+          type: string
+          pattern: ^E[1-9][0-9]*$
+        span_id: *id001
+        source_class:
+          type: string
+          enum:
+          - public_authority
+          - private_upload
+        source_title: *id002
+        display_citation: *id002
+        pinpoint: *id002
+        viewer_path:
+          type: string
+          pattern: ^/v1/
+        official_url:
+          anyOf:
+          - type: string
+            format: uri
+          - type: 'null'
+        excerpt: *id002
+        source_sha256: *id005
+        role_label:
+          type: string
+          enum:
+          - operative_text
+          - court_reasoning
+          - party_argument
+          - quoted_authority
+          - headnote
+          - footnote
+          - unclassified
+        opinion_type: *id002
+      required:
+      - handle
+      - span_id
+      - source_class
+      - source_title
+      - display_citation
+      - pinpoint
+      - viewer_path
+      - official_url
+      - excerpt
+      - source_sha256
+      - role_label
+      - opinion_type
+    Problem:
+      type: object
+      additionalProperties: false
+      properties:
+        type: *id002
+        title: *id002
+        status:
+          type: integer
+          minimum: 400
+          maximum: 599
+        code: *id002
+        detail: *id002
+        trace_id: *id002
+      required:
+      - type
+      - title
+      - status
+      - code
+      - detail
+      - trace_id
+    Receipt:
+      type: object
+      additionalProperties: false
+      properties:
+        id: *id001
+        state: *id002
+        created_at: *id006
+      required:
+      - id
+      - state
+      - created_at
+    Run:
+      type: object
+      additionalProperties: false
+      properties:
+        id: *id001
+        state:
+          type: string
+          enum:
+          - queued
+          - planning
+          - needs_clarification
+          - retrieving
+          - drafting
+          - verifying
+          - awaiting_review
+          - completed
+          - partial
+          - abstained
+          - failed
+          - cancelled
+        created_at: *id006
+        finished_at:
+          anyOf:
+          - *id006
+          - type: 'null'
+        answer:
+          anyOf:
+          - $ref: '#/components/schemas/Answer'
+          - type: 'null'
+        error_code:
+          anyOf:
+          - *id002
+          - type: 'null'
+      required:
+      - id
+      - state
+      - created_at
+      - finished_at
+      - answer
+      - error_code
+    UserContext:
+      type: object
+      additionalProperties: false
+      properties:
+        user_id: *id001
+        authorized_tenants:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              tenant_id: *id001
+              role: *id002
+            required:
+            - tenant_id
+            - role
+          minItems: 0
+      required:
+      - user_id
+      - authorized_tenants
+    Workspace:
+      type: object
+      additionalProperties: false
+      properties:
+        id: *id001
+        name: *id002
+        acl_revision:
+          type: integer
+          minimum: 1
+        role:
+          type: string
+          enum:
+          - manager
+          - researcher
+          - viewer
+      required:
+      - id
+      - name
+      - acl_revision
+      - role
+    WorkspaceCreate:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+      required:
+      - name
+    WorkspaceMember:
+      type: object
+      additionalProperties: false
+      properties:
+        user_id: *id001
+        role:
+          type: string
+          enum:
+          - manager
+          - researcher
+          - viewer
+      required:
+      - user_id
+      - role
+    Coverage:
+      type: object
+      additionalProperties: false
+      properties:
+        release_id: *id001
+        sources:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              source_key: *id002
+              last_attempt_at:
+                anyOf:
+                - *id006
+                - type: 'null'
+              last_success_at:
+                anyOf:
+                - *id006
+                - type: 'null'
+              covered_through:
+                anyOf:
+                - *id003
+                - type: 'null'
+              pending_documents: *id007
+              known_gaps:
+                type: array
+                items: *id002
+                minItems: 0
+            required:
+            - source_key
+            - last_attempt_at
+            - last_success_at
+            - covered_through
+            - pending_documents
+            - known_gaps
+          minItems: 0
+      required:
+      - release_id
+      - sources
+    SearchRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        workspace_id: *id001
+        query:
+          type: string
+          minLength: 1
+          maxLength: 2000
+        language:
+          type: string
+          enum:
+          - en
+          - hi
+        jurisdiction_key: *id002
+        authority_cutoff: *id003
+        include_private_documents: *id004
+        limit:
+          type: integer
+          minimum: 1
+          maximum: 100
+      required:
+      - workspace_id
+      - query
+      - language
+      - jurisdiction_key
+      - authority_cutoff
+      - include_private_documents
+    SearchResults:
+      type: object
+      additionalProperties: false
+      properties:
+        release_id: *id001
+        items:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              document_id: *id001
+              unit_version_id: *id001
+              title: *id002
+              excerpt: *id002
+              source_class:
+                type: string
+                enum:
+                - public_authority
+                - private_upload
+              viewer_path: *id002
+              scope_warnings:
+                type: array
+                items: *id002
+                minItems: 0
+            required:
+            - document_id
+            - unit_version_id
+            - title
+            - excerpt
+            - source_class
+            - viewer_path
+            - scope_warnings
+          minItems: 0
+        warnings:
+          type: array
+          items: *id002
+          minItems: 0
+      required:
+      - release_id
+      - items
+      - warnings
+    UnitList:
+      type: object
+      additionalProperties: false
+      properties:
+        document_id: *id001
+        units:
+          type: array
+          items: *id008
+          minItems: 0
+        next_cursor:
+          anyOf:
+          - *id002
+          - type: 'null'
+      required:
+      - document_id
+      - units
+      - next_cursor
+    Span:
+      type: object
+      additionalProperties: false
+      properties:
+        span_id: *id001
+        text: *id002
+        source_title: *id002
+        pinpoint: *id002
+        official_url:
+          anyOf:
+          - *id002
+          - type: 'null'
+        anchors:
+          type: array
+          items: *id009
+          minItems: 0
+        source_sha256: *id005
+      required:
+      - span_id
+      - text
+      - source_title
+      - pinpoint
+      - official_url
+      - anchors
+      - source_sha256
+    VersionHistory:
+      type: object
+      additionalProperties: false
+      properties:
+        unit_id: *id001
+        versions:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              unit_version_id: *id001
+              display_label: *id002
+              valid_from:
+                anyOf:
+                - *id003
+                - type: 'null'
+              valid_to:
+                anyOf:
+                - *id003
+                - type: 'null'
+              scope_key: *id002
+              review_state:
+                type: string
+                enum:
+                - candidate
+                - approved
+                - rejected
+              evidence_span_ids:
+                type: array
+                items: *id001
+                minItems: 0
+            required:
+            - unit_version_id
+            - display_label
+            - valid_from
+            - valid_to
+            - scope_key
+            - review_state
+            - evidence_span_ids
+          minItems: 0
+        warnings:
+          type: array
+          items: *id002
+          minItems: 0
+      required:
+      - unit_id
+      - versions
+      - warnings
+    CitationGraph:
+      type: object
+      additionalProperties: false
+      properties:
+        document_id: *id001
+        edges:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              edge_id: *id001
+              relation: *id002
+              target_document_id:
+                anyOf:
+                - *id001
+                - type: 'null'
+              evidence_span_id: *id001
+              scope_description: *id002
+              review_state: *id002
+            required:
+            - edge_id
+            - relation
+            - target_document_id
+            - evidence_span_id
+            - scope_description
+            - review_state
+          minItems: 0
+        coverage_warning: *id002
+      required:
+      - document_id
+      - edges
+      - coverage_warning
+    Clarification:
+      type: object
+      additionalProperties: false
+      properties:
+        responses:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              question_id: *id002
+              answer:
+                type: string
+                maxLength: 4000
+            required:
+            - question_id
+            - answer
+          minItems: 1
+          maxItems: 10
+      required:
+      - responses
+    ExportRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        format:
+          type: string
+          enum:
+          - markdown
+          - pdf
+          - docx
+      required:
+      - format
+    Export:
+      type: object
+      additionalProperties: false
+      properties:
+        id: *id001
+        state: *id002
+        expires_at:
+          anyOf:
+          - *id006
+          - type: 'null'
+        download_path:
+          anyOf:
+          - *id002
+          - type: 'null'
+      required:
+      - id
+      - state
+      - expires_at
+      - download_path
+    Download:
+      type: object
+      additionalProperties: false
+      properties:
+        url:
+          type: string
+          format: uri
+        expires_at: *id006
+      required:
+      - url
+      - expires_at
+    FeedbackRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        category:
+          type: string
+          enum:
+          - incorrect_claim
+          - missing_authority
+          - bad_citation
+          - privacy_concern
+          - other
+        comment:
+          type: string
+          maxLength: 4000
+      required:
+      - category
+      - comment
+    UploadRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        workspace_id: *id001
+        filename:
+          type: string
+          minLength: 1
+          maxLength: 200
+        media_type:
+          const: application/pdf
+        byte_size:
+          type: integer
+          minimum: 1
+          maximum: 52428800
+        sha256: *id005
+      required:
+      - workspace_id
+      - filename
+      - media_type
+      - byte_size
+      - sha256
+    UploadSession:
+      type: object
+      additionalProperties: false
+      properties:
+        document_id: *id001
+        upload_url:
+          type: string
+          format: uri
+        expires_at: *id006
+        required_headers:
+          type: object
+          additionalProperties: false
+          properties:
+            Content-Type: *id002
+            x-amz-checksum-sha256: *id002
+          required:
+          - Content-Type
+          - x-amz-checksum-sha256
+      required:
+      - document_id
+      - upload_url
+      - expires_at
+      - required_headers
+    UploadComplete:
+      type: object
+      additionalProperties: false
+      properties:
+        sha256: *id005
+        object_version: *id002
+      required:
+      - sha256
+      - object_version
+    PrivateDocument:
+      type: object
+      additionalProperties: false
+      properties:
+        id: *id001
+        workspace_id: *id001
+        title: *id002
+        state: *id002
+        created_at: *id006
+        extraction_warnings:
+          type: array
+          items: *id002
+          minItems: 0
+      required:
+      - id
+      - workspace_id
+      - title
+      - state
+      - created_at
+      - extraction_warnings
+    DeletionRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        workspace_id:
+          anyOf:
+          - *id001
+          - type: 'null'
+        target_type:
+          type: string
+          enum:
+          - private_document
+          - workspace
+          - answer
+          - account
+        target_id: *id001
+        reason:
+          type: string
+          maxLength: 1000
+      required:
+      - workspace_id
+      - target_type
+      - target_id
+      - reason
+    DeletionStatus:
+      type: object
+      additionalProperties: false
+      properties:
+        id: *id001
+        state: *id002
+        access_revoked: *id004
+        retention_notice:
+          anyOf:
+          - *id002
+          - type: 'null'
+        completed_at:
+          anyOf:
+          - *id006
+          - type: 'null'
+      required:
+      - id
+      - state
+      - access_revoked
+      - retention_notice
+      - completed_at
+    Source:
+      type: object
+      additionalProperties: false
+      properties:
+        id: *id001
+        source_key: *id002
+        name: *id002
+        base_url: *id002
+        acquisition_mode:
+          type: string
+          enum:
+          - manual_manifest
+          - approved_http
+          - licensed_feed
+        enabled: *id004
+        policy_state: *id002
+      required:
+      - id
+      - source_key
+      - name
+      - base_url
+      - acquisition_mode
+      - enabled
+      - policy_state
+    SourceCreate:
+      type: object
+      additionalProperties: false
+      properties:
+        source_key: *id002
+        name: *id002
+        base_url:
+          type: string
+          format: uri
+        allowed_hosts:
+          type: array
+          items: *id002
+          minItems: 1
+        acquisition_mode:
+          type: string
+          enum:
+          - manual_manifest
+          - approved_http
+          - licensed_feed
+      required:
+      - source_key
+      - name
+      - base_url
+      - allowed_hosts
+      - acquisition_mode
+    SourcePolicyReview:
+      type: object
+      additionalProperties: false
+      properties:
+        source_policy_id: *id001
+        decision:
+          type: string
+          enum:
+          - approve
+          - reject
+        evidence_reference: *id002
+        comment: *id002
+      required:
+      - source_policy_id
+      - decision
+      - evidence_reference
+      - comment
+    ImportRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        source_id: *id001
+        source_policy_id: *id001
+        manifest_object_key: *id002
+        manifest_sha256: *id005
+      required:
+      - source_id
+      - source_policy_id
+      - manifest_object_key
+      - manifest_sha256
+    Job:
+      type: object
+      additionalProperties: false
+      properties:
+        id: *id001
+        stage: *id002
+        state: *id002
+        attempts: *id007
+        error_code:
+          anyOf:
+          - *id002
+          - type: 'null'
+      required:
+      - id
+      - stage
+      - state
+      - attempts
+      - error_code
+    EditorialReview:
+      type: object
+      additionalProperties: false
+      properties:
+        target_type:
+          type: string
+          enum:
+          - extraction
+          - applicability_assertion
+          - legal_edge
+          - proposition
+        target_id: *id001
+        target_version_sha256: *id005
+        decision:
+          type: string
+          enum:
+          - approve
+          - reject
+          - request_changes
+        rationale: *id002
+        evidence_span_ids:
+          type: array
+          items: *id001
+          minItems: 0
+      required:
+      - target_type
+      - target_id
+      - target_version_sha256
+      - decision
+      - rationale
+      - evidence_span_ids
+    ReleaseBuild:
+      type: object
+      additionalProperties: false
+      properties:
+        manifest_object_key: *id002
+        manifest_sha256: *id005
+        embedding_profile: *id002
+      required:
+      - manifest_object_key
+      - manifest_sha256
+      - embedding_profile
+    Release:
+      type: object
+      additionalProperties: false
+      properties:
+        id: *id001
+        release_key: *id002
+        state: *id002
+        coverage:
+          $ref: '#/components/schemas/Coverage'
+      required:
+      - id
+      - release_key
+      - state
+      - coverage
+    PublishApproval:
+      type: object
+      additionalProperties: false
+      properties:
+        manifest_sha256: *id005
+        review_reference: *id002
+      required:
+      - manifest_sha256
+      - review_reference
+    TakedownRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        document_id:
+          anyOf:
+          - *id001
+          - type: 'null'
+        artifact_id:
+          anyOf:
+          - *id001
+          - type: 'null'
+        reason_code: *id002
+        review_reference: *id002
+      required:
+      - document_id
+      - artifact_id
+      - reason_code
+      - review_reference
+    AuditPage:
+      type: object
+      additionalProperties: false
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              id: *id001
+              action: *id002
+              resource_type: *id002
+              resource_id:
+                anyOf:
+                - *id001
+                - type: 'null'
+              created_at: *id006
+            required:
+            - id
+            - action
+            - resource_type
+            - resource_id
+            - created_at
+          minItems: 0
+        next_cursor:
+          anyOf:
+          - *id002
+          - type: 'null'
+      required:
+      - items
+      - next_cursor
+    Usage:
+      type: object
+      additionalProperties: false
+      properties:
+        currency: *id002
+        period_start: *id006
+        reserved:
+          type: number
+          minimum: 0
+        charged:
+          type: number
+          minimum: 0
+        remaining_budget:
+          type: number
+          minimum: 0
+      required:
+      - currency
+      - period_start
+      - reserved
+      - charged
+      - remaining_budget
+    Health:
+      type: object
+      additionalProperties: false
+      properties:
+        status:
+          type: string
+          enum:
+          - ok
+          - not_ready
+      required:
+      - status
+    WorkspaceList:
+      type: object
+      additionalProperties: false
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Workspace'
+          minItems: 0
+      required:
+      - items
+    SourceList:
+      type: object
+      additionalProperties: false
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Source'
+          minItems: 0
+      required:
+      - items
+  parameters:
+    TenantSelector:
+      name: X-Tenant-ID
+      in: header
+      required: false
+      schema:
+        type: string
+        format: uuid
+      description: Organization selector only. Server must authenticate and validate
+        active membership. Absent header uses an unambiguous authenticated active
+        organization, otherwise return 409 TENANT_SELECTION_REQUIRED.

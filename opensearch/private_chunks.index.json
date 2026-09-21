@@ -1,0 +1,129 @@
+{
+  "settings": {
+    "index": {
+      "knn": true,
+      "number_of_shards": 1,
+      "number_of_replicas": 1
+    },
+    "analysis": {
+      "analyzer": {
+        "legal_text": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase"
+          ]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "dynamic": "strict",
+    "properties": {
+      "chunk_id": {
+        "type": "keyword"
+      },
+      "document_id": {
+        "type": "keyword"
+      },
+      "document_version_id": {
+        "type": "keyword"
+      },
+      "unit_id": {
+        "type": "keyword"
+      },
+      "unit_version_id": {
+        "type": "keyword"
+      },
+      "embedding_profile": {
+        "type": "keyword"
+      },
+      "language": {
+        "type": "keyword"
+      },
+      "jurisdiction_key": {
+        "type": "keyword"
+      },
+      "role_label": {
+        "type": "keyword"
+      },
+      "title": {
+        "type": "text",
+        "analyzer": "legal_text",
+        "fields": {
+          "raw": {
+            "type": "keyword",
+            "ignore_above": 512
+          }
+        }
+      },
+      "heading_path": {
+        "type": "text",
+        "analyzer": "legal_text",
+        "fields": {
+          "raw": {
+            "type": "keyword",
+            "ignore_above": 512
+          }
+        }
+      },
+      "search_text": {
+        "type": "text",
+        "analyzer": "legal_text"
+      },
+      "source_text": {
+        "type": "text",
+        "index": false
+      },
+      "source_sha256": {
+        "type": "keyword"
+      },
+      "char_start": {
+        "type": "integer"
+      },
+      "char_end": {
+        "type": "integer"
+      },
+      "is_synthetic": {
+        "type": "boolean"
+      },
+      "restricted": {
+        "type": "boolean"
+      },
+      "embedding": {
+        "type": "knn_vector",
+        "dimension": 1024,
+        "method": {
+          "name": "hnsw",
+          "space_type": "cosinesimil",
+          "engine": "lucene",
+          "parameters": {
+            "ef_construction": 128,
+            "m": 16
+          }
+        }
+      },
+      "tenant_id": {
+        "type": "keyword"
+      },
+      "workspace_id": {
+        "type": "keyword"
+      },
+      "acl_revision": {
+        "type": "long"
+      },
+      "state": {
+        "type": "keyword"
+      },
+      "private_document_id": {
+        "type": "keyword"
+      },
+      "private_version_id": {
+        "type": "keyword"
+      },
+      "private_span_ids": {
+        "type": "keyword"
+      }
+    }
+  }
+}

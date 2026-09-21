@@ -1,0 +1,30 @@
+digraph "03_ingestion" {
+	bgcolor=white fontname=Lato fontsize=14 nodesep=0.28 pad=0.16 rankdir=TB ranksep=0.34 splines=polyline
+	node [color="#A6B8C4" fillcolor="#F3F5F7" fontcolor="#18344B" fontname=Lato fontsize=14 margin="0.16,0.12" penwidth=1.1 shape=box style="rounded,filled"]
+	edge [arrowsize=0.7 color="#5D7687" fontcolor="#18344B" fontname=Lato fontsize=11]
+	a [label="Register source and permitted uses" color="#18344B" fillcolor="#18344B" fontcolor=white]
+	b [label="Acquisition approved?" fillcolor="#FFF1D5" margin="0.09,0.06" shape=diamond]
+	c [label="Acquire original bytes
+Hash, type-check and quarantine"]
+	d [label="Scan and extract text
+OCR only when needed"]
+	e [label="Parse legal units, dates and citations
+Preserve exact source anchors"]
+	f [label="Quality checks and legal-editor review" color="#BA872C" fillcolor="#FFF1D5"]
+	g [label="Create chunks and approved embeddings
+Build a candidate search release"]
+	h [label="Independent publication checks
+Switch active release pointer" color="#167D8D" fillcolor="#EDF5F7"]
+	x [label="Blocked / quarantined
+Recorded reason and owner" color="#B6584B" fillcolor="#FBE9E7"]
+	a -> b
+	b -> c [label=Yes]
+	b -> x [label=No]
+	c -> d
+	d -> e
+	e -> f
+	f -> g
+	g -> h
+	d -> x [label="Unsafe / unreadable"]
+	f -> x [label="Unresolved defect"]
+}

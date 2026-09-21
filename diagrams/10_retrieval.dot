@@ -1,0 +1,27 @@
+digraph "10_retrieval" {
+	bgcolor=white fontname=Lato fontsize=14 nodesep=0.28 pad=0.16 rankdir=TB ranksep=0.34 splines=polyline
+	node [color="#A6B8C4" fillcolor="#F3F5F7" fontcolor="#18344B" fontname=Lato fontsize=14 margin="0.16,0.12" penwidth=1.1 shape=box style="rounded,filled"]
+	edge [arrowsize=0.7 color="#5D7687" fontcolor="#18344B" fontname=Lato fontsize=11]
+	q [label="Typed question + approved scope" color="#18344B" fillcolor="#18344B" fontcolor=white]
+	i [label="Resolve exact identifiers and ambiguities"]
+	l [label="Lexical search (BM25)
+Exact words, sections, citations"]
+	v [label="Semantic vector search
+Meaning and related concepts"]
+	r [label="Rank fusion → deduplicate → rerank
+Same mandatory scope in both branches"]
+	c [label="Expand parent context, definitions
+and relevant exceptions"]
+	s [label="Fetch canonical spans
+Check release, rights, dates and access"]
+	e [label="Evidence pack with verified handles
+Only then available to generation" color="#167D8D" fillcolor="#EDF5F7"]
+	q -> i
+	i -> l
+	i -> v
+	l -> r
+	v -> r
+	r -> c
+	c -> s
+	s -> e
+}

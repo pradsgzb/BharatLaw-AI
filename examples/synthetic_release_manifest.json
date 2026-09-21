@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "is_synthetic": true,
+  "release_id": "7366f835-cead-5340-abd7-f5a8a2e9365a",
+  "release_key": "fixture-release-v1",
+  "document_index": "bl-public-documents-fixture-v1",
+  "chunk_index": "bl-public-chunks-fixture-1024-v1",
+  "embedding_profile": "fixture-1024",
+  "document_version_ids": [
+    "9515684a-d03a-5cfc-b295-e0a5c367589d"
+  ],
+  "unit_version_ids": [
+    "fcb3174f-d876-5602-a27f-90f67f7958c7"
+  ],
+  "applicability_assertion_ids": [],
+  "legal_edge_ids": [],
+  "source_policy_ids": [
+    "87b756a7-d466-50d1-8bd7-1f3f86b101e2"
+  ],
+  "parser_profiles": [
+    "fixture-native-v1"
+  ],
+  "coverage": {
+    "source_keys": [
+      "fixture"
+    ],
+    "complete": false,
+    "limitations": [
+      "Synthetic fixture only; no actual Indian law."
+    ]
+  }
+}

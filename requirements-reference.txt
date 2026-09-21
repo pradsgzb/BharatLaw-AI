@@ -1,0 +1,5 @@
+# Versions used for the reference-suite validation in this handoff.
+# Not the production application's dependency lockfile.
+pytest==9.0.2
+jsonschema==4.26.0
+PyYAML==6.0.3

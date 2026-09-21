@@ -1,0 +1,168 @@
+{
+  "settings": {
+    "index": {
+      "knn": true,
+      "number_of_shards": 1,
+      "number_of_replicas": 1
+    },
+    "analysis": {
+      "analyzer": {
+        "legal_text": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase"
+          ]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "dynamic": "strict",
+    "properties": {
+      "chunk_id": {
+        "type": "keyword"
+      },
+      "document_id": {
+        "type": "keyword"
+      },
+      "document_version_id": {
+        "type": "keyword"
+      },
+      "unit_id": {
+        "type": "keyword"
+      },
+      "unit_version_id": {
+        "type": "keyword"
+      },
+      "source_id": {
+        "type": "keyword"
+      },
+      "corpus_release_id": {
+        "type": "keyword"
+      },
+      "embedding_profile": {
+        "type": "keyword"
+      },
+      "language": {
+        "type": "keyword"
+      },
+      "document_type": {
+        "type": "keyword"
+      },
+      "court_key": {
+        "type": "keyword"
+      },
+      "jurisdiction_key": {
+        "type": "keyword"
+      },
+      "opinion_type": {
+        "type": "keyword"
+      },
+      "role_label": {
+        "type": "keyword"
+      },
+      "unit_key": {
+        "type": "keyword"
+      },
+      "citations": {
+        "type": "keyword"
+      },
+      "title": {
+        "type": "text",
+        "analyzer": "legal_text",
+        "fields": {
+          "raw": {
+            "type": "keyword",
+            "ignore_above": 512
+          }
+        }
+      },
+      "heading_path": {
+        "type": "text",
+        "analyzer": "legal_text",
+        "fields": {
+          "raw": {
+            "type": "keyword",
+            "ignore_above": 512
+          }
+        }
+      },
+      "search_text": {
+        "type": "text",
+        "analyzer": "legal_text"
+      },
+      "source_text": {
+        "type": "text",
+        "index": false
+      },
+      "source_sha256": {
+        "type": "keyword"
+      },
+      "char_start": {
+        "type": "integer"
+      },
+      "char_end": {
+        "type": "integer"
+      },
+      "decision_date": {
+        "type": "date",
+        "format": "strict_date"
+      },
+      "publication_date": {
+        "type": "date",
+        "format": "strict_date"
+      },
+      "published": {
+        "type": "boolean"
+      },
+      "is_synthetic": {
+        "type": "boolean"
+      },
+      "restricted": {
+        "type": "boolean"
+      },
+      "embedding": {
+        "type": "knn_vector",
+        "dimension": 1024,
+        "method": {
+          "name": "hnsw",
+          "space_type": "cosinesimil",
+          "engine": "lucene",
+          "parameters": {
+            "ef_construction": 128,
+            "m": 16
+          }
+        }
+      },
+      "applicability": {
+        "type": "nested",
+        "properties": {
+          "assertion_id": {
+            "type": "keyword"
+          },
+          "scope_key": {
+            "type": "keyword"
+          },
+          "territory_key": {
+            "type": "keyword"
+          },
+          "valid_from": {
+            "type": "date",
+            "format": "strict_date"
+          },
+          "valid_to": {
+            "type": "date",
+            "format": "strict_date"
+          },
+          "legal_status": {
+            "type": "keyword"
+          },
+          "review_state": {
+            "type": "keyword"
+          }
+        }
+      }
+    }
+  }
+}

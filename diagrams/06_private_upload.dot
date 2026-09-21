@@ -1,0 +1,27 @@
+digraph "06_private_upload" {
+	bgcolor=white fontname=Lato fontsize=14 nodesep=0.28 pad=0.16 rankdir=TB ranksep=0.34 splines=polyline
+	node [color="#A6B8C4" fillcolor="#F3F5F7" fontcolor="#18344B" fontname=Lato fontsize=14 margin="0.16,0.12" penwidth=1.1 shape=box style="rounded,filled"]
+	edge [arrowsize=0.7 color="#5D7687" fontcolor="#18344B" fontname=Lato fontsize=11]
+	a [label="Authorized workspace member
+Requests PDF upload session" color="#18344B" fillcolor="#18344B" fontcolor=white]
+	b [label="Check feature gate, policy and quotas
+Issue one restricted upload destination"]
+	c [label="Verify bytes, checksum and ownership
+Quarantine and malware screening"]
+	d [label="Isolated parsing + necessary OCR
+Versioned private source spans"]
+	e [label="Index with tenant, workspace
+and current permission revision"]
+	f [label="Ready for this workspace only
+Reauthorize before every use" color="#167D8D" fillcolor="#EDF5F7"]
+	x [label="Reject / quarantine / restrict
+No search or model transmission" color="#B6584B" fillcolor="#FBE9E7"]
+	a -> b
+	b -> c
+	c -> d
+	d -> e
+	e -> f
+	b -> x [label="Gate closed"]
+	c -> x [label="Validation fails"]
+	e -> x [label="Access changes"]
+}

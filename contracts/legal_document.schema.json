@@ -1,0 +1,397 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/bharatlaw/contracts/legal_document.schema.json",
+  "title": "BharatLaw legal_document v1",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "is_synthetic": {
+      "type": "boolean"
+    },
+    "document_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "document_version_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "canonical_key": {
+      "type": "string"
+    },
+    "document_type": {
+      "type": "string",
+      "enum": [
+        "constitution",
+        "act",
+        "rule",
+        "regulation",
+        "notification",
+        "ordinance",
+        "judgment",
+        "order",
+        "amendment",
+        "circular"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "jurisdiction_key": {
+      "type": "string"
+    },
+    "language": {
+      "type": "string",
+      "enum": [
+        "en",
+        "hi"
+      ]
+    },
+    "representation_kind": {
+      "type": "string",
+      "enum": [
+        "official_published",
+        "editorial_consolidation",
+        "official_translation",
+        "machine_translation",
+        "synthetic_fixture"
+      ]
+    },
+    "publication_date": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "edition_as_of": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "decision_date": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "artifact_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "source_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "fetched_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "artifact_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "media_type": {
+          "type": "string"
+        },
+        "object_version": {
+          "type": "string"
+        },
+        "policy_id": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "required": [
+        "source_id",
+        "artifact_id",
+        "source_url",
+        "fetched_at",
+        "artifact_sha256",
+        "media_type",
+        "object_version",
+        "policy_id"
+      ]
+    },
+    "extraction": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "extraction_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "parser_profile": {
+          "type": "string"
+        },
+        "config_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "used_ocr": {
+          "type": "boolean"
+        },
+        "review_state": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "quarantined",
+            "validated",
+            "approved",
+            "fixture_only"
+          ]
+        }
+      },
+      "required": [
+        "extraction_id",
+        "parser_profile",
+        "config_sha256",
+        "used_ocr",
+        "review_state"
+      ]
+    },
+    "units": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "unit_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "unit_version_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "parent_unit_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "unit_type": {
+            "type": "string",
+            "enum": [
+              "article",
+              "section",
+              "subsection",
+              "clause",
+              "proviso",
+              "explanation",
+              "schedule",
+              "paragraph",
+              "footnote",
+              "table",
+              "heading"
+            ]
+          },
+          "unit_key": {
+            "type": "string"
+          },
+          "display_label": {
+            "type": "string"
+          },
+          "structural_path": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          },
+          "original_paragraph_label": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "opinion_type": {
+            "type": "string",
+            "enum": [
+              "majority",
+              "concurrence",
+              "dissent",
+              "plurality",
+              "per_curiam",
+              "unknown",
+              "not_applicable"
+            ]
+          },
+          "role_label": {
+            "type": "string",
+            "enum": [
+              "operative_text",
+              "court_reasoning",
+              "party_argument",
+              "quoted_authority",
+              "headnote",
+              "footnote",
+              "unclassified"
+            ]
+          },
+          "exact_text": {
+            "type": "string",
+            "minLength": 1
+          },
+          "text_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "language": {
+            "type": "string",
+            "enum": [
+              "en",
+              "hi"
+            ]
+          },
+          "spans": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "span_id": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "char_start": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "char_end": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "quote_sha256": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                },
+                "anchors": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "pdf_page_number": {
+                        "type": "integer",
+                        "minimum": 1
+                      },
+                      "printed_page_label": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "bbox": {
+                        "type": "array",
+                        "items": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        },
+                        "minItems": 4,
+                        "maxItems": 4
+                      },
+                      "origin": {
+                        "const": "top-left"
+                      }
+                    },
+                    "required": [
+                      "pdf_page_number",
+                      "printed_page_label",
+                      "bbox",
+                      "origin"
+                    ]
+                  },
+                  "minItems": 0
+                }
+              },
+              "required": [
+                "span_id",
+                "char_start",
+                "char_end",
+                "quote_sha256",
+                "anchors"
+              ]
+            },
+            "minItems": 1
+          }
+        },
+        "required": [
+          "unit_id",
+          "unit_version_id",
+          "parent_unit_id",
+          "unit_type",
+          "unit_key",
+          "display_label",
+          "structural_path",
+          "original_paragraph_label",
+          "opinion_type",
+          "role_label",
+          "exact_text",
+          "text_sha256",
+          "language",
+          "spans"
+        ]
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "schema_version",
+    "is_synthetic",
+    "document_id",
+    "document_version_id",
+    "canonical_key",
+    "document_type",
+    "title",
+    "jurisdiction_key",
+    "language",
+    "representation_kind",
+    "publication_date",
+    "edition_as_of",
+    "decision_date",
+    "source",
+    "extraction",
+    "units"
+  ]
+}

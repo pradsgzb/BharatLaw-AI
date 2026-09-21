@@ -1,0 +1,1573 @@
+{
+  "document_id": "BL-SRS-001",
+  "version": "1.1",
+  "date": "2026-09-19",
+  "status": "review_draft",
+  "baseline_archive_sha256": "6143c82b22dc4d56d3941a4535b196c9e6595ec5f3e55bd39497c0d64d767ae9",
+  "requirements": [
+    {
+      "id": "BL-FR-001",
+      "category": "functional",
+      "module": "6.1 Identity, membership and permissions",
+      "title": "Authenticate",
+      "requirement": "The system shall authenticate through an approved identity provider and validate token signature, issuer, audience, expiry and purpose.",
+      "acceptance": "Invalid, expired and wrong-audience tokens are denied; legitimate sessions succeed.",
+      "phase": "1",
+      "tickets": "BL-008, BL-025, BL-036",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-002",
+      "category": "functional",
+      "module": "6.1 Identity, membership and permissions",
+      "title": "Privileged access",
+      "requirement": "The system shall require MFA for privileged roles and protect browser sessions against token exposure and request forgery.",
+      "acceptance": "Privileged login, session expiry, secure-cookie and CSRF tests pass.",
+      "phase": "1",
+      "tickets": "BL-008, BL-025, BL-036",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-003",
+      "category": "functional",
+      "module": "6.1 Identity, membership and permissions",
+      "title": "Organization selection",
+      "requirement": "The system shall resolve a requested organization against active membership; ambiguous selection shall prompt the user.",
+      "acceptance": "A forged tenant selector never grants access; ambiguous selection gives a safe conflict.",
+      "phase": "1",
+      "tickets": "BL-008, BL-025, BL-036",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-004",
+      "category": "functional",
+      "module": "6.1 Identity, membership and permissions",
+      "title": "Workspace scope",
+      "requirement": "The system shall enforce current workspace permission separately from organization membership on every resource path.",
+      "acceptance": "Two workspaces in one tenant cannot read each other without explicit membership.",
+      "phase": "1",
+      "tickets": "BL-008, BL-025, BL-036",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-005",
+      "category": "functional",
+      "module": "6.1 Identity, membership and permissions",
+      "title": "Role separation",
+      "requirement": "The system shall separate research, source, legal review, security, audit and publication capabilities.",
+      "acceptance": "Each role is denied operations outside its declared permission set.",
+      "phase": "1",
+      "tickets": "BL-008, BL-025, BL-036",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-006",
+      "category": "functional",
+      "module": "6.1 Identity, membership and permissions",
+      "title": "Revocation",
+      "requirement": "The system shall reauthorize long-running jobs, streams, model transmissions, source views and exports after permission changes.",
+      "acceptance": "Revocation during a run prevents further unauthorized transmission and final disclosure.",
+      "phase": "1",
+      "tickets": "BL-008, BL-025, BL-036",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-007",
+      "category": "functional",
+      "module": "6.1 Identity, membership and permissions",
+      "title": "Audit identity changes",
+      "requirement": "The system shall record membership, role, policy and permission-revision changes without unnecessary content bodies.",
+      "acceptance": "Audit events identify actor, target, time, reason and revision; secrets are absent.",
+      "phase": "1",
+      "tickets": "BL-008, BL-025, BL-036",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-008",
+      "category": "functional",
+      "module": "6.2 Source governance and coverage",
+      "title": "Use-specific rights",
+      "requirement": "The system shall store independent decisions for acquisition, storage, parsing, indexing, provider transmission, display, redistribution and training/evaluation.",
+      "acceptance": "A source permitted for storage but not model transmission is not sent to a provider.",
+      "phase": "0–1",
+      "tickets": "BL-001, BL-002, BL-009, BL-013, BL-026",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-009",
+      "category": "functional",
+      "module": "6.2 Source governance and coverage",
+      "title": "Fail-closed approval",
+      "requirement": "The system shall deny each affected operation while its source permission is pending, rejected, expired or withdrawn.",
+      "acceptance": "All non-approved states block the applicable operation and record a safe reason.",
+      "phase": "0–1",
+      "tickets": "BL-001, BL-002, BL-009, BL-013, BL-026",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-010",
+      "category": "functional",
+      "module": "6.2 Source governance and coverage",
+      "title": "Source evidence",
+      "requirement": "The source register shall retain rights evidence, access method, attribution, reviewer, review date and re-review or expiry conditions.",
+      "acceptance": "Approval cannot be submitted without the required attributable review fields.",
+      "phase": "0–1",
+      "tickets": "BL-001, BL-002, BL-009, BL-013, BL-026",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-011",
+      "category": "functional",
+      "module": "6.2 Source governance and coverage",
+      "title": "Approved acquisition",
+      "requirement": "The system shall use reviewed manual imports or approved source adapters with explicit allowlists and rate limits.",
+      "acceptance": "Unapproved hosts, protected controls and undocumented acquisition routes cannot be used by the model.",
+      "phase": "0–1",
+      "tickets": "BL-001, BL-002, BL-009, BL-013, BL-026",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-012",
+      "category": "functional",
+      "module": "6.2 Source governance and coverage",
+      "title": "Coverage disclosure",
+      "requirement": "The system shall disclose source/court/date coverage, publication cutoff, synchronization status, pending items and material gaps.",
+      "acceptance": "A failed synchronization is not presented as an up-to-date corpus.",
+      "phase": "0–1",
+      "tickets": "BL-001, BL-002, BL-009, BL-013, BL-026",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-013",
+      "category": "functional",
+      "module": "6.2 Source governance and coverage",
+      "title": "Immediate restriction",
+      "requirement": "The system shall enforce takedowns at serving and transmission boundaries before asynchronous index removal completes.",
+      "acceptance": "A newly restricted source cannot be opened, transmitted or used in a new answer.",
+      "phase": "0–1",
+      "tickets": "BL-001, BL-002, BL-009, BL-013, BL-026",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-014",
+      "category": "functional",
+      "module": "6.2 Source governance and coverage",
+      "title": "No synthetic release",
+      "requirement": "Production publication shall reject synthetic fixtures, unapproved extractions and unapproved sources.",
+      "acceptance": "A candidate containing one synthetic unit fails its publication gate.",
+      "phase": "0–1",
+      "tickets": "BL-001, BL-002, BL-009, BL-013, BL-026",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-015",
+      "category": "functional",
+      "module": "6.3 Ingestion and editorial publication",
+      "title": "Original bytes",
+      "requirement": "The system shall preserve the original artifact, byte hash, object version, source locator and acquisition metadata before parsing.",
+      "acceptance": "An extracted passage can be traced to an immutable original and its hash.",
+      "phase": "1",
+      "tickets": "BL-009–BL-013",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-016",
+      "category": "functional",
+      "module": "6.3 Ingestion and editorial publication",
+      "title": "Version changes",
+      "requirement": "The system shall create new artifact/text versions when source bytes or reviewed extraction change, rather than overwrite released evidence.",
+      "acceptance": "Same-URL changed bytes produce a new version; earlier runs remain identifiable.",
+      "phase": "1",
+      "tickets": "BL-009–BL-013",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-017",
+      "category": "functional",
+      "module": "6.3 Ingestion and editorial publication",
+      "title": "Idempotent import",
+      "requirement": "The system shall safely handle repeated imports and queue deliveries with stable job/stage/input keys.",
+      "acceptance": "Repeated delivery produces one intended version/effect and auditable attempts.",
+      "phase": "1",
+      "tickets": "BL-009–BL-013",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-018",
+      "category": "functional",
+      "module": "6.3 Ingestion and editorial publication",
+      "title": "File safety",
+      "requirement": "The system shall validate format, content signature, file limits and scan results before isolated parsing.",
+      "acceptance": "Unsafe, unsupported, oversized and corrupt files remain quarantined.",
+      "phase": "1",
+      "tickets": "BL-009–BL-013",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-019",
+      "category": "functional",
+      "module": "6.3 Ingestion and editorial publication",
+      "title": "Selective OCR",
+      "requirement": "The system shall use native extraction first and record OCR only where required for unusable or image-only pages.",
+      "acceptance": "A native-text fixture avoids OCR; a scanned fixture records OCR provenance and review needs.",
+      "phase": "1",
+      "tickets": "BL-009–BL-013",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-020",
+      "category": "functional",
+      "module": "6.3 Ingestion and editorial publication",
+      "title": "Legal structure",
+      "requirement": "The parser shall preserve provisions, clauses, exceptions, schedules, opinions and original judgment paragraph labels where present.",
+      "acceptance": "Reviewed fixtures retain essential exceptions and do not invent paragraph numbers.",
+      "phase": "1",
+      "tickets": "BL-009–BL-013",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-021",
+      "category": "functional",
+      "module": "6.3 Ingestion and editorial publication",
+      "title": "Exact anchors",
+      "requirement": "The system shall retain canonical text, Unicode code-point offsets, page references and optional bounding boxes for source passages.",
+      "acceptance": "Quoted spans match canonical text and original visual anchors, including Unicode cases.",
+      "phase": "1",
+      "tickets": "BL-009–BL-013",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-022",
+      "category": "functional",
+      "module": "6.3 Ingestion and editorial publication",
+      "title": "Quality review",
+      "requirement": "The system shall flag unreadable text, uncertain metadata, essential OCR ambiguities and unresolved legal assertions for review.",
+      "acceptance": "Unresolved essential defects cannot advance to authoritative publication.",
+      "phase": "1",
+      "tickets": "BL-009–BL-013",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-023",
+      "category": "functional",
+      "module": "6.3 Ingestion and editorial publication",
+      "title": "Atomic publication",
+      "requirement": "The system shall validate candidate indexes, manifests and independent approval before activating a corpus release.",
+      "acceptance": "Partial indexing or missing approval leaves the candidate unpublished.",
+      "phase": "1",
+      "tickets": "BL-009–BL-013",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-024",
+      "category": "functional",
+      "module": "6.3 Ingestion and editorial publication",
+      "title": "Reproducible releases",
+      "requirement": "A release shall pin legal units, source-policy, temporal, citation and treatment snapshots with versioned canonical hashes.",
+      "acceptance": "A historical run resolves the same approved evidence despite later corrections.",
+      "phase": "1",
+      "tickets": "BL-009–BL-013",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-025",
+      "category": "functional",
+      "module": "6.4 Catalog and source viewing",
+      "title": "Exact lookup",
+      "requirement": "The catalog shall resolve approved titles, canonical IDs and citation aliases without treating a case name as unique.",
+      "acceptance": "Ambiguous or unknown identifiers return choices or no verified match.",
+      "phase": "1–2",
+      "tickets": "BL-010, BL-012, BL-014, BL-018",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-026",
+      "category": "functional",
+      "module": "6.4 Catalog and source viewing",
+      "title": "Structured browsing",
+      "requirement": "The viewer shall provide paginated legal-unit navigation and surrounding context without returning an entire corpus.",
+      "acceptance": "Long judgments and statutes remain navigable within response size limits.",
+      "phase": "1–2",
+      "tickets": "BL-010, BL-012, BL-014, BL-018",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-027",
+      "category": "functional",
+      "module": "6.4 Catalog and source viewing",
+      "title": "Canonical quotation",
+      "requirement": "The system shall reconstruct quoted text from canonical source spans, never an unchecked search summary or model output.",
+      "acceptance": "A modified index excerpt cannot alter the displayed canonical quotation.",
+      "phase": "1–2",
+      "tickets": "BL-010, BL-012, BL-014, BL-018",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-028",
+      "category": "functional",
+      "module": "6.4 Catalog and source viewing",
+      "title": "Honest pinpoints",
+      "requirement": "The viewer shall distinguish original paragraph numbers, PDF page positions and printed page labels.",
+      "acceptance": "Unnumbered judgments use page/excerpt references, not fabricated paragraph labels.",
+      "phase": "1–2",
+      "tickets": "BL-010, BL-012, BL-014, BL-018",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-029",
+      "category": "functional",
+      "module": "6.4 Catalog and source viewing",
+      "title": "Source availability",
+      "requirement": "The viewer shall recheck rights and access on every source request and disclose restrictions without substituting authority.",
+      "acceptance": "Restricted and missing originals generate a safe availability state.",
+      "phase": "1–2",
+      "tickets": "BL-010, BL-012, BL-014, BL-018",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-030",
+      "category": "functional",
+      "module": "6.4 Catalog and source viewing",
+      "title": "Context preservation",
+      "requirement": "Evidence display shall retain related definitions, provisos, explanations and relevant table headers where material.",
+      "acceptance": "A qualifying exception remains visible with its operative provision.",
+      "phase": "1–2",
+      "tickets": "BL-010, BL-012, BL-014, BL-018",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-031",
+      "category": "functional",
+      "module": "6.5 Search and ranking",
+      "title": "Typed search",
+      "requirement": "Search shall accept typed filters and bounded query text, not raw OpenSearch DSL, SQL or client-selected indexes.",
+      "acceptance": "Injection and arbitrary-index inputs are rejected.",
+      "phase": "2",
+      "tickets": "BL-014–BL-019, BL-020",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-032",
+      "category": "functional",
+      "module": "6.5 Search and ranking",
+      "title": "Parallel retrieval",
+      "requirement": "The gateway shall execute lexical and semantic branches using the same mandatory authorized scope.",
+      "acceptance": "Integration tests compare mandatory filters in both executed branches.",
+      "phase": "2",
+      "tickets": "BL-014–BL-019, BL-020",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-033",
+      "category": "functional",
+      "module": "6.5 Search and ranking",
+      "title": "Private inner filters",
+      "requirement": "Private retrieval shall include tenant, workspace, active state and permission revision within candidate selection.",
+      "acceptance": "Unauthorized passages never enter model evidence or returned results.",
+      "phase": "2",
+      "tickets": "BL-014–BL-019, BL-020",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-034",
+      "category": "functional",
+      "module": "6.5 Search and ranking",
+      "title": "Release pinning",
+      "requirement": "Public retrieval shall use the concrete indexes declared in the run’s accessible release.",
+      "acceptance": "An alias switch during a run cannot mix release versions.",
+      "phase": "2",
+      "tickets": "BL-014–BL-019, BL-020",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-035",
+      "category": "functional",
+      "module": "6.5 Search and ranking",
+      "title": "Rank fusion",
+      "requirement": "The system shall fuse candidate ranks deterministically, deduplicate and apply bounded reranking.",
+      "acceptance": "Repeated identical candidates produce the same ordering and no duplicates.",
+      "phase": "2",
+      "tickets": "BL-014–BL-019, BL-020",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-036",
+      "category": "functional",
+      "module": "6.5 Search and ranking",
+      "title": "Profile compatibility",
+      "requirement": "The system shall reject embedding/model/dimension mismatches and require a new evaluated index for profile changes.",
+      "acceptance": "Wrong-dimension or wrong-profile requests fail before search/index publication.",
+      "phase": "2",
+      "tickets": "BL-014–BL-019, BL-020",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-037",
+      "category": "functional",
+      "module": "6.5 Search and ranking",
+      "title": "Context expansion",
+      "requirement": "The retriever shall recover necessary parent context and exceptions within a bounded evidence budget.",
+      "acceptance": "An over-budget essential context case is narrowed or qualified, not silently truncated.",
+      "phase": "2",
+      "tickets": "BL-014–BL-019, BL-020",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-038",
+      "category": "functional",
+      "module": "6.5 Search and ranking",
+      "title": "Authority distinction",
+      "requirement": "The product shall distinguish retrieval relevance from legal authority and preserve court, opinion, scope and treatment metadata.",
+      "acceptance": "Recency or similarity alone cannot generate a conclusive precedence label.",
+      "phase": "2",
+      "tickets": "BL-014–BL-019, BL-020",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-039",
+      "category": "functional",
+      "module": "6.5 Search and ranking",
+      "title": "Degraded search",
+      "requirement": "The system shall expose permitted exact/lexical lookup when generation is unavailable, with explicit service limitations.",
+      "acceptance": "A disabled generation provider does not remove healthy catalog functionality.",
+      "phase": "2",
+      "tickets": "BL-014–BL-019, BL-020",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-040",
+      "category": "functional",
+      "module": "6.6 Research and answer generation",
+      "title": "Research input",
+      "requirement": "The system shall capture question, workspace, language, depth, jurisdiction, legal date, authority cutoff, mode and private inclusion explicitly.",
+      "acceptance": "Required fields validate against the approved request contract and feature policy.",
+      "phase": "3",
+      "tickets": "BL-020–BL-026, BL-031, BL-033",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-041",
+      "category": "functional",
+      "module": "6.6 Research and answer generation",
+      "title": "Bounded clarification",
+      "requirement": "The planner shall ask for material missing facts, with at most two clarification rounds before assumptions, narrowing or abstention.",
+      "acceptance": "No material state/date/procedural assumption is silently introduced.",
+      "phase": "3",
+      "tickets": "BL-020–BL-026, BL-031, BL-033",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-042",
+      "category": "functional",
+      "module": "6.6 Research and answer generation",
+      "title": "Durable run",
+      "requirement": "The system shall save plan, release, profiles, policy, evidence and stage progress in a durable research run.",
+      "acceptance": "A worker restart recovers a valid checkpoint without fabricating completion.",
+      "phase": "3",
+      "tickets": "BL-020–BL-026, BL-031, BL-033",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-043",
+      "category": "functional",
+      "module": "6.6 Research and answer generation",
+      "title": "Budget reservation",
+      "requirement": "Research creation shall reserve entitlement/cost allowance and record an outbox event in the same transaction.",
+      "acceptance": "Concurrent requests cannot exceed a configured allowance through a race.",
+      "phase": "3",
+      "tickets": "BL-020–BL-026, BL-031, BL-033",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-044",
+      "category": "functional",
+      "module": "6.6 Research and answer generation",
+      "title": "Evidence handles",
+      "requirement": "The coordinator shall assign permitted evidence handles; the model may reference only those handles in material claims.",
+      "acceptance": "Unknown, cross-run and cross-release handles are rejected.",
+      "phase": "3",
+      "tickets": "BL-020–BL-026, BL-031, BL-033",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-045",
+      "category": "functional",
+      "module": "6.6 Research and answer generation",
+      "title": "Contrary research",
+      "requirement": "Research shall seek relevant limiting or contrary material when the question requires synthesis, within declared coverage.",
+      "acceptance": "Known adverse-authority test cases are retrieved or explicitly flagged as a coverage gap.",
+      "phase": "3",
+      "tickets": "BL-020–BL-026, BL-031, BL-033",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-046",
+      "category": "functional",
+      "module": "6.6 Research and answer generation",
+      "title": "Structured answer",
+      "requirement": "Published answers shall distinguish legal authority, user-provided facts, inference, assumptions, limits and review status.",
+      "acceptance": "Contract validation and UI tests confirm all applicable sections and source classes.",
+      "phase": "3",
+      "tickets": "BL-020–BL-026, BL-031, BL-033",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-047",
+      "category": "functional",
+      "module": "6.6 Research and answer generation",
+      "title": "Safe progress",
+      "requirement": "The system shall stream typed milestones and authorized evidence metadata, not unverified legal prose or hidden model reasoning.",
+      "acceptance": "Stream payload tests reject raw draft tokens and unauthorized source bodies.",
+      "phase": "3",
+      "tickets": "BL-020–BL-026, BL-031, BL-033",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-048",
+      "category": "functional",
+      "module": "6.6 Research and answer generation",
+      "title": "Cancellation",
+      "requirement": "The system shall stop new work after cancellation, protect terminal states and reconcile in-flight costs honestly.",
+      "acceptance": "Late workers cannot publish after cancellation; uncertain provider charges remain recorded.",
+      "phase": "3",
+      "tickets": "BL-020–BL-026, BL-031, BL-033",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-049",
+      "category": "functional",
+      "module": "6.6 Research and answer generation",
+      "title": "Valid abstention",
+      "requirement": "Insufficient, conflicted or unverifiable evidence shall yield clarification, qualification, partial output or abstention rather than invented authority.",
+      "acceptance": "Critical fake-citation and missing-source fixtures receive the appropriate non-definitive outcome.",
+      "phase": "3",
+      "tickets": "BL-020–BL-026, BL-031, BL-033",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-050",
+      "category": "functional",
+      "module": "6.7 Verification and trustworthy output",
+      "title": "Integrity gates",
+      "requirement": "Every published citation shall resolve to current authorized evidence within the run and its pinned release.",
+      "acceptance": "Every served citation passes run/release/source/permission checks.",
+      "phase": "3",
+      "tickets": "BL-022–BL-026, BL-036, BL-037",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-051",
+      "category": "functional",
+      "module": "6.7 Verification and trustworthy output",
+      "title": "Exact quote checks",
+      "requirement": "Quoted content shall match the canonical excerpt, Unicode offsets and quote hash exactly.",
+      "acceptance": "One-character quotation changes and wrong offsets block publication.",
+      "phase": "3",
+      "tickets": "BL-022–BL-026, BL-036, BL-037",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-052",
+      "category": "functional",
+      "module": "6.7 Verification and trustworthy output",
+      "title": "Semantic support",
+      "requirement": "The system shall assess whether material claims are supported, including qualifications and passage roles, separately from citation existence.",
+      "acceptance": "Reviewer fixtures detect a real citation used for an unsupported proposition.",
+      "phase": "3",
+      "tickets": "BL-022–BL-026, BL-036, BL-037",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-053",
+      "category": "functional",
+      "module": "6.7 Verification and trustworthy output",
+      "title": "Bounded repair",
+      "requirement": "A failed answer-verification cycle shall allow no more than one controlled repair before omission, review or abstention.",
+      "acceptance": "A persistently failing generator cannot enter an unbounded repair loop.",
+      "phase": "3",
+      "tickets": "BL-022–BL-026, BL-036, BL-037",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-054",
+      "category": "functional",
+      "module": "6.7 Verification and trustworthy output",
+      "title": "Human review label",
+      "requirement": "Only an authenticated qualifying human review operation shall set a lawyer-reviewed status.",
+      "acceptance": "Model-supplied review flags are ignored or rejected.",
+      "phase": "3",
+      "tickets": "BL-022–BL-026, BL-036, BL-037",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-055",
+      "category": "functional",
+      "module": "6.7 Verification and trustworthy output",
+      "title": "No misleading status",
+      "requirement": "The product shall avoid definitive citator or accuracy badges unsupported by corpus coverage and actual review.",
+      "acceptance": "A no-adverse-case result includes coverage limitations, not a universal clean-status claim.",
+      "phase": "3",
+      "tickets": "BL-022–BL-026, BL-036, BL-037",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-056",
+      "category": "functional",
+      "module": "6.7 Verification and trustworthy output",
+      "title": "Sanitized rendering",
+      "requirement": "Answers and citations shall be rendered through safe templates and sanitized content with server-resolved links.",
+      "acceptance": "Script URLs, executable HTML and remote-image exfiltration are blocked.",
+      "phase": "3",
+      "tickets": "BL-022–BL-026, BL-036, BL-037",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-057",
+      "category": "functional",
+      "module": "6.7 Verification and trustworthy output",
+      "title": "Changed availability",
+      "requirement": "When evidence becomes restricted, stored answers shall be limited under policy while retaining an appropriately restricted audit identity.",
+      "acceptance": "Old answers show a source-availability notice and do not silently cite a replacement.",
+      "phase": "3",
+      "tickets": "BL-022–BL-026, BL-036, BL-037",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-058",
+      "category": "functional",
+      "module": "6.8 Historical law and provision versions",
+      "title": "Separate dates",
+      "requirement": "The system shall distinguish legal applicability, event, authority cutoff, publication and platform knowledge dates.",
+      "acceptance": "Tests show that publication date alone does not establish commencement.",
+      "phase": "4",
+      "tickets": "BL-027, BL-028, BL-032",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-059",
+      "category": "functional",
+      "module": "6.8 Historical law and provision versions",
+      "title": "Bitemporal records",
+      "requirement": "Applicability records shall preserve both legal-time intervals and knowledge-time history with half-open boundaries.",
+      "acceptance": "Boundary and retrospective-correction tests execute against actual PostgreSQL.",
+      "phase": "4",
+      "tickets": "BL-027, BL-028, BL-032",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-060",
+      "category": "functional",
+      "module": "6.8 Historical law and provision versions",
+      "title": "Scope conditions",
+      "requirement": "Version resolution shall consider reviewed territorial, commencement, saving and transitional conditions.",
+      "acceptance": "Missing material conditions produce a qualified or review-required result.",
+      "phase": "4",
+      "tickets": "BL-027, BL-028, BL-032",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-061",
+      "category": "functional",
+      "module": "6.8 Historical law and provision versions",
+      "title": "Unknown dates",
+      "requirement": "Unknown commencement or unresolved scope shall remain explicit and shall block an unqualified operative-law statement.",
+      "acceptance": "Null dates cannot be treated as an invented beginning of time.",
+      "phase": "4",
+      "tickets": "BL-027, BL-028, BL-032",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-062",
+      "category": "functional",
+      "module": "6.8 Historical law and provision versions",
+      "title": "Historical modes",
+      "requirement": "Contemporaneous and retrospective-analysis modes shall apply their distinct authority-cutoff behavior.",
+      "acceptance": "Later interpretations are excluded or expressly labeled as required by the chosen mode.",
+      "phase": "4",
+      "tickets": "BL-027, BL-028, BL-032",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-063",
+      "category": "functional",
+      "module": "6.8 Historical law and provision versions",
+      "title": "Version comparison",
+      "requirement": "The interface shall show selected wording, amendments and evidence-backed relationships without implying automatic section equivalence.",
+      "acceptance": "A renumbering fixture retains identity/relationship history and review scope.",
+      "phase": "4",
+      "tickets": "BL-027, BL-028, BL-032",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-064",
+      "category": "functional",
+      "module": "6.8 Historical law and provision versions",
+      "title": "Snapshot stability",
+      "requirement": "Later corrections shall create new knowledge assertions and release snapshots without rewriting previous research inputs.",
+      "acceptance": "The same old run retains its original interpretation inputs while current restrictions remain enforced.",
+      "phase": "4",
+      "tickets": "BL-027, BL-028, BL-032",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-065",
+      "category": "functional",
+      "module": "6.9 Citation relationships and opinions",
+      "title": "Citation resolution",
+      "requirement": "Citation mentions shall retain original text, candidate resolution, ambiguity and review state.",
+      "acceptance": "Ambiguous mentions do not become verified cases through model confidence alone.",
+      "phase": "4",
+      "tickets": "BL-029–BL-031",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-066",
+      "category": "functional",
+      "module": "6.9 Citation relationships and opinions",
+      "title": "Opinion attribution",
+      "requirement": "The system shall distinguish majority, concurrence, dissent, arguments and quoted prior authority where known.",
+      "acceptance": "A dissent or counsel submission cannot be presented as a majority holding.",
+      "phase": "4",
+      "tickets": "BL-029–BL-031",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-067",
+      "category": "functional",
+      "module": "6.9 Citation relationships and opinions",
+      "title": "Treatment evidence",
+      "requirement": "Follows, distinguishes, overrules and similar treatment shall have supporting source spans, scoped propositions and review evidence.",
+      "acceptance": "A mere citation cannot generate an approved overruling relationship.",
+      "phase": "4",
+      "tickets": "BL-029–BL-031",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-068",
+      "category": "functional",
+      "module": "6.9 Citation relationships and opinions",
+      "title": "Bounded graph",
+      "requirement": "Citation-neighbor expansion shall be bounded, release-pinned and reauthorized before use.",
+      "acceptance": "Graph traversal respects node/edge limits and excludes restricted evidence.",
+      "phase": "4",
+      "tickets": "BL-029–BL-031",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-069",
+      "category": "functional",
+      "module": "6.9 Citation relationships and opinions",
+      "title": "Conflict reporting",
+      "requirement": "The interface shall display potential conflicts and reviewed relationship scope rather than choose controlling authority from a weighted score alone.",
+      "acceptance": "A conflicting-authority fixture exposes the conflict and relevant passages.",
+      "phase": "4",
+      "tickets": "BL-029–BL-031",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-070",
+      "category": "functional",
+      "module": "6.10 Private matters and uploaded documents",
+      "title": "Private gate",
+      "requirement": "The system shall keep private uploads disabled until approved processing, retention and isolation gates pass.",
+      "acceptance": "Missing approval denies upload and private model use on the server, not just in the UI.",
+      "phase": "5",
+      "tickets": "BL-035–BL-037, BL-040",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-071",
+      "category": "functional",
+      "module": "6.10 Private matters and uploaded documents",
+      "title": "Upload session",
+      "requirement": "Uploads shall use server-issued, constrained destinations with ownership, checksum, media and quota checks.",
+      "acceptance": "Object substitution, expiry and overwrite races fail safely.",
+      "phase": "5",
+      "tickets": "BL-035–BL-037, BL-040",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-072",
+      "category": "functional",
+      "module": "6.10 Private matters and uploaded documents",
+      "title": "Isolated parsing",
+      "requirement": "Private files shall pass quarantine and sandbox parsing without network or executable document content.",
+      "acceptance": "Malicious PDF and resource-exhaustion fixtures remain contained.",
+      "phase": "5",
+      "tickets": "BL-035–BL-037, BL-040",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-073",
+      "category": "functional",
+      "module": "6.10 Private matters and uploaded documents",
+      "title": "Separate private index",
+      "requirement": "Private passages shall remain outside public authority indexes and include current tenant/workspace/permission metadata.",
+      "acceptance": "No public query can return private passage content or identity.",
+      "phase": "5",
+      "tickets": "BL-035–BL-037, BL-040",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-074",
+      "category": "functional",
+      "module": "6.10 Private matters and uploaded documents",
+      "title": "Source class",
+      "requirement": "Private submissions shall be marked as user-provided factual material, not authoritative law.",
+      "acceptance": "Answer generation preserves the distinction in mixed public/private evidence.",
+      "phase": "5",
+      "tickets": "BL-035–BL-037, BL-040",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-075",
+      "category": "functional",
+      "module": "6.10 Private matters and uploaded documents",
+      "title": "No training by default",
+      "requirement": "Customer content shall not be used for model training by default; any future use requires separate explicit approval and rights.",
+      "acceptance": "Provider/configuration tests show training-related routes remain disabled.",
+      "phase": "5",
+      "tickets": "BL-035–BL-037, BL-040",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-076",
+      "category": "functional",
+      "module": "6.10 Private matters and uploaded documents",
+      "title": "Retention-aware deletion",
+      "requirement": "Deletion shall revoke ordinary access first, evaluate holds and permitted retention, then track erasure across applicable components.",
+      "acceptance": "A held record is restricted; an incompletely erased record is not marked completed.",
+      "phase": "5",
+      "tickets": "BL-035–BL-037, BL-040",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-077",
+      "category": "functional",
+      "module": "6.10 Private matters and uploaded documents",
+      "title": "Restore restrictions",
+      "requirement": "Recovery shall replay current deletion, takedown and permission restrictions before restored data are exposed.",
+      "acceptance": "A restored backup cannot resurrect searchable deleted/restricted matter content.",
+      "phase": "5",
+      "tickets": "BL-035–BL-037, BL-040",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-078",
+      "category": "functional",
+      "module": "6.11 Exports, feedback and accountable changes",
+      "title": "Fixed exports",
+      "requirement": "Exports shall use fixed safe templates and include dates, source links, release, limitations and actual review status.",
+      "acceptance": "Exported citations match the selected answer revision and safe rendering tests pass.",
+      "phase": "3–5",
+      "tickets": "BL-025, BL-026, BL-037, BL-042",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-079",
+      "category": "functional",
+      "module": "6.11 Exports, feedback and accountable changes",
+      "title": "Export authorization",
+      "requirement": "The system shall check policy/approval at request, execution and download time.",
+      "acceptance": "Revoking membership before download prevents disclosure.",
+      "phase": "3–5",
+      "tickets": "BL-025, BL-026, BL-037, BL-042",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-080",
+      "category": "functional",
+      "module": "6.11 Exports, feedback and accountable changes",
+      "title": "Feedback capture",
+      "requirement": "Users shall report answer/source issues against exact revisions with category and optional explanation.",
+      "acceptance": "The editorial queue receives a traceable issue without rewriting the original answer.",
+      "phase": "3–5",
+      "tickets": "BL-025, BL-026, BL-037, BL-042",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-081",
+      "category": "functional",
+      "module": "6.11 Exports, feedback and accountable changes",
+      "title": "Correction lineage",
+      "requirement": "Corrections shall retain reviewer identity, rationale, affected versions and new release linkage.",
+      "acceptance": "A reviewer can reconstruct what changed, why, and which release contains the correction.",
+      "phase": "3–5",
+      "tickets": "BL-025, BL-026, BL-037, BL-042",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-082",
+      "category": "functional",
+      "module": "6.11 Exports, feedback and accountable changes",
+      "title": "No external action",
+      "requirement": "Research or export shall not send correspondence, make payment or file court documents.",
+      "acceptance": "The available tool/endpoint surface exposes no such autonomous action.",
+      "phase": "3–5",
+      "tickets": "BL-025, BL-026, BL-037, BL-042",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-083",
+      "category": "functional",
+      "module": "6.11 Exports, feedback and accountable changes",
+      "title": "Change notice",
+      "requirement": "The product shall surface material availability or correction limitations affecting viewed answers under policy.",
+      "acceptance": "Restricted-source and corrected-metadata fixtures display an appropriate notice.",
+      "phase": "3–5",
+      "tickets": "BL-025, BL-026, BL-037, BL-042",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-084",
+      "category": "functional",
+      "module": "6.12 Operations, jobs and provider controls",
+      "title": "Provider register",
+      "requirement": "Every generation, embedding, reranking or external OCR route shall identify approved profile, data classes, processing geography and retention terms.",
+      "acceptance": "An unapproved profile or data class fails before transmission.",
+      "phase": "0–6",
+      "tickets": "BL-003–BL-006, BL-020, BL-021, BL-038–BL-044",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-085",
+      "category": "functional",
+      "module": "6.12 Operations, jobs and provider controls",
+      "title": "No silent fallback",
+      "requirement": "The system shall fail closed when no approved route exists rather than silently change model, region or content policy.",
+      "acceptance": "A provider outage cannot route India-only/private content to an unapproved destination.",
+      "phase": "0–6",
+      "tickets": "BL-003–BL-006, BL-020, BL-021, BL-038–BL-044",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-086",
+      "category": "functional",
+      "module": "6.12 Operations, jobs and provider controls",
+      "title": "Durable queues",
+      "requirement": "Workers shall use durable state, leases, heartbeats, bounded retries and dead-letter handling for every background stage.",
+      "acceptance": "Crash and duplicate-delivery tests prove recoverability without duplicate effects.",
+      "phase": "0–6",
+      "tickets": "BL-003–BL-006, BL-020, BL-021, BL-038–BL-044",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-087",
+      "category": "functional",
+      "module": "6.12 Operations, jobs and provider controls",
+      "title": "Usage ledger",
+      "requirement": "The system shall reconcile reserved, actual and uncertain provider cost against run and tenant allowances.",
+      "acceptance": "Timeout and retry tests retain uncertain cost rather than assume zero usage.",
+      "phase": "0–6",
+      "tickets": "BL-003–BL-006, BL-020, BL-021, BL-038–BL-044",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-088",
+      "category": "functional",
+      "module": "6.12 Operations, jobs and provider controls",
+      "title": "Safe observability",
+      "requirement": "Logs and traces shall record operational metadata without routine question bodies, private evidence, credentials or full model outputs.",
+      "acceptance": "Automated log inspection finds no protected fixture content or secrets.",
+      "phase": "0–6",
+      "tickets": "BL-003–BL-006, BL-020, BL-021, BL-038–BL-044",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-089",
+      "category": "functional",
+      "module": "6.12 Operations, jobs and provider controls",
+      "title": "Operational status",
+      "requirement": "Operations views shall expose queue age, source lag, failures, review backlog, budget limits and service degradation.",
+      "acceptance": "Induced faults generate actionable alerts and visible states.",
+      "phase": "0–6",
+      "tickets": "BL-003–BL-006, BL-020, BL-021, BL-038–BL-044",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-090",
+      "category": "functional",
+      "module": "6.12 Operations, jobs and provider controls",
+      "title": "Controlled delivery",
+      "requirement": "Deployment shall use reviewed infrastructure, pinned dependencies, tested migrations and explicit environment authorization.",
+      "acceptance": "A clean release can be reproduced; missing production approval blocks deployment.",
+      "phase": "0–6",
+      "tickets": "BL-003–BL-006, BL-020, BL-021, BL-038–BL-044",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-FR-091",
+      "category": "functional",
+      "module": "6.12 Operations, jobs and provider controls",
+      "title": "Honest completion",
+      "requirement": "Implementation reports shall distinguish implemented, tested, blocked, untested and deferred work with actual commands and outputs.",
+      "acceptance": "Mock tests, undeployed infrastructure and synthetic fixtures are not reported as production evidence.",
+      "phase": "0–6",
+      "tickets": "BL-003–BL-006, BL-020, BL-021, BL-038–BL-044",
+      "status": "proposed",
+      "approval_required": true
+    },
+    {
+      "id": "BL-NFR-001",
+      "module": "13. Nonfunctional requirements",
+      "title": "Search responsiveness",
+      "requirement": "At 100,000 chunks and 10 concurrent researchers on the declared environment, target search p95 below 3 seconds.",
+      "acceptance": "Record p50/p95/p99, request count, warm/cold conditions and failed requests.",
+      "phase": "1–6",
+      "tickets": "BL-019, BL-023, BL-024, BL-038–BL-043",
+      "status": "proposed",
+      "approval_required": true,
+      "category": "nonfunctional"
+    },
+    {
+      "id": "BL-NFR-002",
+      "module": "13. Nonfunctional requirements",
+      "title": "Quick research",
+      "requirement": "On the same declared pilot workload, target quick-research p95 below 60 seconds with approved provider profiles.",
+      "acceptance": "Measure the full workflow, including retrieval, provider time and verification.",
+      "phase": "1–6",
+      "tickets": "BL-019, BL-023, BL-024, BL-038–BL-043",
+      "status": "proposed",
+      "approval_required": true,
+      "category": "nonfunctional"
+    },
+    {
+      "id": "BL-NFR-003",
+      "module": "13. Nonfunctional requirements",
+      "title": "Availability",
+      "requirement": "Target 99.9% monthly production availability after operational validation; define included routes and outage accounting.",
+      "acceptance": "Calculate a declared monthly indicator; do not advertise the target as achieved before measurement.",
+      "phase": "1–6",
+      "tickets": "BL-019, BL-023, BL-024, BL-038–BL-043",
+      "status": "proposed",
+      "approval_required": true,
+      "category": "nonfunctional"
+    },
+    {
+      "id": "BL-NFR-004",
+      "module": "13. Nonfunctional requirements",
+      "title": "Recovery point",
+      "requirement": "Target metadata RPO of 15 minutes with the configured backup/PITR strategy.",
+      "acceptance": "A restore drill identifies the recoverable point and actual data loss interval.",
+      "phase": "1–6",
+      "tickets": "BL-019, BL-023, BL-024, BL-038–BL-043",
+      "status": "proposed",
+      "approval_required": true,
+      "category": "nonfunctional"
+    },
+    {
+      "id": "BL-NFR-005",
+      "module": "13. Nonfunctional requirements",
+      "title": "Recovery time",
+      "requirement": "Target service RTO of 4 hours, with semantic index recovery measured separately and degraded mode documented.",
+      "acceptance": "A timed restore/rollback exercise includes access and deletion replay.",
+      "phase": "1–6",
+      "tickets": "BL-019, BL-023, BL-024, BL-038–BL-043",
+      "status": "proposed",
+      "approval_required": true,
+      "category": "nonfunctional"
+    },
+    {
+      "id": "BL-NFR-006",
+      "module": "13. Nonfunctional requirements",
+      "title": "Scale qualification",
+      "requirement": "Test 100,000 chunks for pilot and 1 million before broad-corpus release.",
+      "acceptance": "Report index size, recall, latency, concurrency, cost and rebuild duration.",
+      "phase": "1–6",
+      "tickets": "BL-019, BL-023, BL-024, BL-038–BL-043",
+      "status": "proposed",
+      "approval_required": true,
+      "category": "nonfunctional"
+    },
+    {
+      "id": "BL-NFR-007",
+      "module": "13. Nonfunctional requirements",
+      "title": "Citation integrity",
+      "requirement": "Every served citation must pass current identity, source, release and access checks.",
+      "acceptance": "Per-answer deterministic gate plus adversarial cross-run/release/permission fixtures.",
+      "phase": "1–6",
+      "tickets": "BL-019, BL-023, BL-024, BL-038–BL-043",
+      "status": "proposed",
+      "approval_required": true,
+      "category": "nonfunctional"
+    },
+    {
+      "id": "BL-NFR-008",
+      "module": "13. Nonfunctional requirements",
+      "title": "Quotation integrity",
+      "requirement": "Every served quotation must exactly match its canonical approved span.",
+      "acceptance": "Unicode, ligature/extraction, offset and tampered-quote tests pass.",
+      "phase": "1–6",
+      "tickets": "BL-019, BL-023, BL-024, BL-038–BL-043",
+      "status": "proposed",
+      "approval_required": true,
+      "category": "nonfunctional"
+    },
+    {
+      "id": "BL-NFR-009",
+      "module": "13. Nonfunctional requirements",
+      "title": "Retrieval quality",
+      "requirement": "Proposed Recall@20 at least 0.90 on lawyer-annotated relevant authorities.",
+      "acceptance": "Report dataset size, denominator, category breakdown and uncertainty, with held-out separation.",
+      "phase": "1–6",
+      "tickets": "BL-019, BL-023, BL-024, BL-038–BL-043",
+      "status": "proposed",
+      "approval_required": true,
+      "category": "nonfunctional"
+    },
+    {
+      "id": "BL-NFR-010",
+      "module": "13. Nonfunctional requirements",
+      "title": "Claim support",
+      "requirement": "Proposed at least 95% of substantive claims supported on independent review, with no unresolved critical defect.",
+      "acceptance": "Review claim-level support and qualifications; real citations alone do not count as support.",
+      "phase": "1–6",
+      "tickets": "BL-019, BL-023, BL-024, BL-038–BL-043",
+      "status": "proposed",
+      "approval_required": true,
+      "category": "nonfunctional"
+    },
+    {
+      "id": "BL-NFR-011",
+      "module": "13. Nonfunctional requirements",
+      "title": "Contrary evidence",
+      "requirement": "Proposed at least 90% recall on annotated known adverse/limiting-authority cases.",
+      "acceptance": "Report the known-reference denominator and corpus coverage; do not claim a complete citator.",
+      "phase": "1–6",
+      "tickets": "BL-019, BL-023, BL-024, BL-038–BL-043",
+      "status": "proposed",
+      "approval_required": true,
+      "category": "nonfunctional"
+    },
+    {
+      "id": "BL-NFR-012",
+      "module": "13. Nonfunctional requirements",
+      "title": "Scope and temporal safety",
+      "requirement": "Zero known critical wrong-version, wrong-jurisdiction or opinion-attribution failures in the release suite.",
+      "acceptance": "Boundary, unknown commencement, dissent and saving/transitional fixtures pass.",
+      "phase": "1–6",
+      "tickets": "BL-019, BL-023, BL-024, BL-038–BL-043",
+      "status": "proposed",
+      "approval_required": true,
+      "category": "nonfunctional"
+    },
+    {
+      "id": "BL-NFR-013",
+      "module": "13. Nonfunctional requirements",
+      "title": "Tenant confidentiality",
+      "requirement": "Zero unauthorized content or source identity exposure in the declared isolation test suite.",
+      "acceptance": "Check results, provider payloads, logs, events, caches, exports and restore behavior.",
+      "phase": "1–6",
+      "tickets": "BL-019, BL-023, BL-024, BL-038–BL-043",
+      "status": "proposed",
+      "approval_required": true,
+      "category": "nonfunctional"
+    },
+    {
+      "id": "BL-NFR-014",
+      "module": "13. Nonfunctional requirements",
+      "title": "Bounded execution",
+      "requirement": "All requests, tools, retries, files and provider calls shall obey configured time, size, cost and concurrency limits.",
+      "acceptance": "Adversarial loops and oversized files terminate safely with correct usage status.",
+      "phase": "1–6",
+      "tickets": "BL-019, BL-023, BL-024, BL-038–BL-043",
+      "status": "proposed",
+      "approval_required": true,
+      "category": "nonfunctional"
+    },
+    {
+      "id": "BL-NFR-015",
+      "module": "13. Nonfunctional requirements",
+      "title": "Accessibility",
+      "requirement": "Target WCAG 2.2 AA for enabled user journeys, subject to audit; provide keyboard navigation and accessible source text.",
+      "acceptance": "Automated checks plus manual keyboard, screen-reader, focus and contrast review.",
+      "phase": "1–6",
+      "tickets": "BL-019, BL-023, BL-024, BL-038–BL-043",
+      "status": "proposed",
+      "approval_required": true,
+      "category": "nonfunctional"
+    },
+    {
+      "id": "BL-NFR-016",
+      "module": "13. Nonfunctional requirements",
+      "title": "Usability",
+      "requirement": "A new user shall be able to ask a question and locate its cited passage without technical terminology being required.",
+      "acceptance": "Observed pilot tasks capture success, time, confusion and actionable findings.",
+      "phase": "1–6",
+      "tickets": "BL-019, BL-023, BL-024, BL-038–BL-043",
+      "status": "proposed",
+      "approval_required": true,
+      "category": "nonfunctional"
+    },
+    {
+      "id": "BL-NFR-017",
+      "module": "13. Nonfunctional requirements",
+      "title": "Maintainability",
+      "requirement": "Use modular boundaries, pinned dependencies, schema versioning and documented configuration; no hard-coded secrets or source hosts.",
+      "acceptance": "Clean-clone setup, contract drift checks, migration tests and dependency review pass.",
+      "phase": "1–6",
+      "tickets": "BL-019, BL-023, BL-024, BL-038–BL-043",
+      "status": "proposed",
+      "approval_required": true,
+      "category": "nonfunctional"
+    },
+    {
+      "id": "BL-NFR-018",
+      "module": "13. Nonfunctional requirements",
+      "title": "Security launch gate",
+      "requirement": "No unresolved critical/high security finding may remain for the enabled production scope.",
+      "acceptance": "Independent security evidence, remediation and regression results are recorded.",
+      "phase": "1–6",
+      "tickets": "BL-019, BL-023, BL-024, BL-038–BL-043",
+      "status": "proposed",
+      "approval_required": true,
+      "category": "nonfunctional"
+    },
+    {
+      "id": "BL-NFR-019",
+      "module": "13. Nonfunctional requirements",
+      "title": "Observability and privacy",
+      "requirement": "Operational diagnosis shall be possible through safe identifiers and metrics without routine private payload logging.",
+      "acceptance": "A fault investigation succeeds using permitted logs; protected fixture text is absent.",
+      "phase": "1–6",
+      "tickets": "BL-019, BL-023, BL-024, BL-038–BL-043",
+      "status": "proposed",
+      "approval_required": true,
+      "category": "nonfunctional"
+    },
+    {
+      "id": "BL-NFR-020",
+      "module": "13. Nonfunctional requirements",
+      "title": "Reproducibility",
+      "requirement": "Research history shall preserve release, source, model/prompt, policy and verification identity, subject to current restrictions.",
+      "acceptance": "A stored run’s evidence and configuration can be reconstructed without silently altering it.",
+      "phase": "1–6",
+      "tickets": "BL-019, BL-023, BL-024, BL-038–BL-043",
+      "status": "proposed",
+      "approval_required": true,
+      "category": "nonfunctional"
+    }
+  ],
+  "workflows": [
+    {
+      "id": "WF-01",
+      "title": "Sign in and select a research workspace"
+    },
+    {
+      "id": "WF-02",
+      "title": "Ask a question and receive a checked answer"
+    },
+    {
+      "id": "WF-03",
+      "title": "Search for a provision or judgment without AI generation"
+    },
+    {
+      "id": "WF-04",
+      "title": "Open a citation and inspect its support"
+    },
+    {
+      "id": "WF-05",
+      "title": "Research the law applicable at a historical date"
+    },
+    {
+      "id": "WF-06",
+      "title": "Import, review and publish legal material"
+    },
+    {
+      "id": "WF-07",
+      "title": "Use a private document in a matter"
+    },
+    {
+      "id": "WF-08",
+      "title": "Request and download a research memorandum"
+    },
+    {
+      "id": "WF-09",
+      "title": "Correct a source or report a misleading answer"
+    },
+    {
+      "id": "WF-10",
+      "title": "Revoke access or delete private matter data"
+    },
+    {
+      "id": "WF-11",
+      "title": "Handle interruption, duplicate delivery and cancellation"
+    },
+    {
+      "id": "WF-12",
+      "title": "Release a tested version and recover from a fault"
+    }
+  ],
+  "acceptance_scenarios": [
+    [
+      "UAT-01",
+      "Valid and invalid sign-in",
+      "An authorized researcher enters a workspace; expired/wrong-audience tokens fail.",
+      "WF-01"
+    ],
+    [
+      "UAT-02",
+      "Cross-tenant selector attack",
+      "A supplied foreign tenant/workspace ID returns no protected data or existence detail.",
+      "WF-01"
+    ],
+    [
+      "UAT-03",
+      "Exact source lookup",
+      "A known fixture provision opens its exact text and original page.",
+      "WF-03"
+    ],
+    [
+      "UAT-04",
+      "Unverified case identity",
+      "An invented or ambiguous citation does not become a fabricated verified case.",
+      "WF-03"
+    ],
+    [
+      "UAT-05",
+      "Supported research answer",
+      "The final answer links each substantive legal proposition to supporting run evidence.",
+      "WF-02"
+    ],
+    [
+      "UAT-06",
+      "Material missing facts",
+      "The system asks a focused clarification, then records assumptions or abstains within its limit.",
+      "WF-02"
+    ],
+    [
+      "UAT-07",
+      "No evidence available",
+      "The product returns an honest evidence-limited result, not a guessed authority.",
+      "WF-02"
+    ],
+    [
+      "UAT-08",
+      "Tampered quotation",
+      "A one-character quote change fails deterministic checks and cannot be published as an exact quote.",
+      "WF-04"
+    ],
+    [
+      "UAT-09",
+      "Real source, wrong proposition",
+      "A valid citation with unsupported analysis fails claim-support review.",
+      "WF-04"
+    ],
+    [
+      "UAT-10",
+      "Unknown commencement",
+      "No unqualified operative-law conclusion appears when the effective date is unresolved.",
+      "WF-05"
+    ],
+    [
+      "UAT-11",
+      "Half-open boundary date",
+      "The synthetic version ending at a boundary is excluded on that boundary date.",
+      "WF-05"
+    ],
+    [
+      "UAT-12",
+      "Later interpretation",
+      "Contemporaneous and retrospective modes treat a later decision differently and visibly.",
+      "WF-05"
+    ],
+    [
+      "UAT-13",
+      "Duplicate import",
+      "Repeated delivery yields one intended import/version effect with attempt history.",
+      "WF-06"
+    ],
+    [
+      "UAT-14",
+      "Changed bytes at same URL",
+      "New bytes create a new version without altering earlier evidence.",
+      "WF-06"
+    ],
+    [
+      "UAT-15",
+      "Bad scan or missing exception",
+      "The document remains under review/quarantine and does not become published authority.",
+      "WF-06"
+    ],
+    [
+      "UAT-16",
+      "Synthetic production material",
+      "A production release containing a synthetic fixture is rejected.",
+      "WF-06"
+    ],
+    [
+      "UAT-17",
+      "Private feature gate",
+      "Unapproved private processing prevents upload and provider transmission.",
+      "WF-07"
+    ],
+    [
+      "UAT-18",
+      "Malicious upload",
+      "A malicious/oversized/unsupported PDF remains isolated and unavailable for research.",
+      "WF-07"
+    ],
+    [
+      "UAT-19",
+      "Mid-run revocation",
+      "Removed workspace access blocks further private transmission, final publication and streams.",
+      "WF-10"
+    ],
+    [
+      "UAT-20",
+      "Private facts versus authority",
+      "Uploaded case facts are labeled as private material, not legislation or a court holding.",
+      "WF-07"
+    ],
+    [
+      "UAT-21",
+      "Export approval and access",
+      "An export requires policy approval and fresh authorization at download.",
+      "WF-08"
+    ],
+    [
+      "UAT-22",
+      "Source takedown",
+      "Serving is blocked immediately and earlier answers show appropriate availability limits.",
+      "WF-09"
+    ],
+    [
+      "UAT-23",
+      "Legal hold and deletion",
+      "Access is withdrawn, held material is restricted, and erasure status is accurate.",
+      "WF-10"
+    ],
+    [
+      "UAT-24",
+      "Worker crash and duplicate event",
+      "A durable checkpoint resumes safely without duplicate answer publication.",
+      "WF-11"
+    ],
+    [
+      "UAT-25",
+      "Provider outage / wrong region",
+      "No unapproved fallback occurs; healthy catalog functionality remains available.",
+      "WF-11"
+    ],
+    [
+      "UAT-26",
+      "Cancellation race",
+      "A late worker cannot publish after cancellation; uncertain external cost is retained.",
+      "WF-11"
+    ],
+    [
+      "UAT-27",
+      "Prompt injection in source",
+      "Document instructions cannot grant tools, disclose secrets or cross scope.",
+      "WF-02 / WF-07"
+    ],
+    [
+      "UAT-28",
+      "Budget exhausted",
+      "No new chargeable action begins after the permitted allowance is exhausted.",
+      "WF-11"
+    ],
+    [
+      "UAT-29",
+      "Restore deleted content",
+      "Restoration replays restrictions before reopening; deleted/restricted data is not searchable.",
+      "WF-12"
+    ],
+    [
+      "UAT-30",
+      "Critical release defect",
+      "An unresolved critical legal/security defect blocks launch despite passing average metrics.",
+      "WF-12"
+    ]
+  ]
+}

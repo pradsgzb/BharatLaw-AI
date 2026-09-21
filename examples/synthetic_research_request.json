@@ -1,0 +1,13 @@
+{
+  "workspace_id": "4082bd23-524f-5531-aeb9-5d100cff0079",
+  "question": "What does the synthetic training instrument require?",
+  "language": "en",
+  "research_mode": "contemporaneous",
+  "depth": "quick",
+  "jurisdiction_key": "FIXTURE",
+  "event_date": null,
+  "law_as_of": "2020-01-01",
+  "authority_cutoff": "2020-01-01",
+  "include_private_documents": false,
+  "corpus_release_id": "7366f835-cead-5340-abd7-f5a8a2e9365a"
+}

@@ -1,0 +1,32 @@
+digraph "08_corpus_erd" {
+	bgcolor=white fontname=Lato fontsize=14 nodesep=0.28 pad=0.16 rankdir=TB ranksep=0.34 splines=polyline
+	node [color="#A6B8C4" fillcolor="#F3F5F7" fontcolor="#18344B" fontname=Lato fontsize=14 margin="0.16,0.12" penwidth=1.1 shape=box style="rounded,filled"]
+	edge [arrowsize=0.7 color="#5D7687" fontcolor="#18344B" fontname=Lato fontsize=11]
+	source [label="Source + use policy"]
+	artifact [label="Original artifact
+Byte hash / provenance" fillcolor="#EDF5F7" shape=cylinder]
+	doc [label="Legal document
+Stable identity"]
+	dv [label="Document version
+Edition / correction"]
+	unit [label="Legal unit
+Article / section / paragraph"]
+	uv [label="Unit version
+Exact text"]
+	span [label="Source span
+Offsets / page / quote hash" fillcolor="#EDF5F7" shape=cylinder]
+	release [label="Corpus release
+Frozen membership snapshots" fillcolor="#EDF5F7" shape=cylinder]
+	app [label="Applicability assertion
+Legal time + knowledge time"]
+	source -> artifact [label="1 → many"]
+	doc -> dv [label="1 → many"]
+	doc -> unit [label="1 → many"]
+	artifact -> dv [label=provenance]
+	dv -> uv [label=contains]
+	unit -> uv [label="1 → many"]
+	uv -> span [label="1 → many"]
+	app -> uv [label=selects]
+	release -> uv [label=pins]
+	release -> app [label=snapshots]
+}

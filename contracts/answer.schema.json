@@ -1,0 +1,322 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/bharatlaw/contracts/answer.schema.json",
+  "title": "BharatLaw answer v1",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "answer_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "run_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "answered",
+        "partial",
+        "abstained",
+        "needs_clarification"
+      ]
+    },
+    "language": {
+      "type": "string",
+      "enum": [
+        "en",
+        "hi"
+      ]
+    },
+    "direct_response": {
+      "type": "string"
+    },
+    "law_as_of": {
+      "type": "string",
+      "format": "date"
+    },
+    "authority_cutoff": {
+      "type": "string",
+      "format": "date"
+    },
+    "corpus_release_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "claim_id": {
+            "type": "string",
+            "pattern": "^C[1-9][0-9]*$"
+          },
+          "text": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "legal_proposition",
+              "analysis",
+              "user_provided_fact",
+              "limitation"
+            ]
+          },
+          "support_status": {
+            "type": "string",
+            "enum": [
+              "supported",
+              "conflict",
+              "needs_review",
+              "not_applicable"
+            ]
+          },
+          "supporting_evidence": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^E[1-9][0-9]*$"
+            },
+            "minItems": 0
+          },
+          "contrary_evidence": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^E[1-9][0-9]*$"
+            },
+            "minItems": 0
+          }
+        },
+        "required": [
+          "claim_id",
+          "text",
+          "kind",
+          "support_status",
+          "supporting_evidence",
+          "contrary_evidence"
+        ]
+      },
+      "minItems": 0
+    },
+    "citations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "handle": {
+            "type": "string",
+            "pattern": "^E[1-9][0-9]*$"
+          },
+          "span_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "source_class": {
+            "type": "string",
+            "enum": [
+              "public_authority",
+              "private_upload"
+            ]
+          },
+          "source_title": {
+            "type": "string"
+          },
+          "display_citation": {
+            "type": "string"
+          },
+          "pinpoint": {
+            "type": "string"
+          },
+          "viewer_path": {
+            "type": "string",
+            "pattern": "^/v1/"
+          },
+          "official_url": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uri"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "excerpt": {
+            "type": "string"
+          },
+          "source_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$",
+            "description": "SHA-256 of UTF-8 canonical unit text containing the cited span; not the PDF byte hash. Resolve source artifact hash through immutable document/version lineage."
+          },
+          "role_label": {
+            "type": "string",
+            "enum": [
+              "operative_text",
+              "court_reasoning",
+              "party_argument",
+              "quoted_authority",
+              "headnote",
+              "footnote",
+              "unclassified"
+            ]
+          },
+          "opinion_type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "handle",
+          "span_id",
+          "source_class",
+          "source_title",
+          "display_citation",
+          "pinpoint",
+          "viewer_path",
+          "official_url",
+          "excerpt",
+          "source_sha256",
+          "role_label",
+          "opinion_type"
+        ]
+      },
+      "minItems": 0
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 0
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 0
+    },
+    "clarifying_questions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 0
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "source_keys": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 0
+        },
+        "court_keys": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 0
+        },
+        "covered_through": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "last_successful_sync_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "known_gaps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "source_keys",
+        "court_keys",
+        "covered_through",
+        "last_successful_sync_at",
+        "known_gaps"
+      ]
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "deterministic_integrity_passed": {
+          "type": "boolean"
+        },
+        "semantic_assessment": {
+          "type": "string",
+          "enum": [
+            "supported",
+            "partial",
+            "conflicting",
+            "insufficient",
+            "not_applicable"
+          ]
+        },
+        "lawyer_reviewed": {
+          "type": "boolean"
+        },
+        "verifier_profile": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "deterministic_integrity_passed",
+        "semantic_assessment",
+        "lawyer_reviewed",
+        "verifier_profile"
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "answer_id",
+    "run_id",
+    "status",
+    "language",
+    "direct_response",
+    "law_as_of",
+    "authority_cutoff",
+    "corpus_release_id",
+    "claims",
+    "citations",
+    "assumptions",
+    "limitations",
+    "clarifying_questions",
+    "coverage",
+    "verification"
+  ]
+}

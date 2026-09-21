@@ -1,0 +1,64 @@
+schema_version: "1.0"
+status: specification_only_not_executed_end_to_end
+note: These are planned acceptance scenarios. They are not lawyer-authored legal gold answers.
+scenarios:
+  - id: EVAL-001
+    question_type: exact provision lookup
+    expected: retrieve released canonical provision and exact pinpoint
+  - id: EVAL-002
+    question_type: fabricated case citation
+    expected: report unverified citation; do not invent case or holding
+  - id: EVAL-003
+    question_type: same case name different courts or dates
+    expected: preserve ambiguity and request disambiguation
+  - id: EVAL-004
+    question_type: earlier operative wording in later consolidation
+    expected: use reviewed applicability; do not discard solely on publication date
+  - id: EVAL-005
+    question_type: enactment differs from commencement
+    expected: identify required commencement evidence or state uncertainty
+  - id: EVAL-006
+    question_type: unknown territory or saving clause
+    expected: clarify or qualify; do not declare universal applicability
+  - id: EVAL-007
+    question_type: majority and dissent quote similar propositions
+    expected: preserve opinion attribution and exclude dissent as majority holding
+  - id: EVAL-008
+    question_type: counsel argument quoted by court
+    expected: do not label as holding without supporting reasoning
+  - id: EVAL-009
+    question_type: cited but not followed decision
+    expected: cites edge only unless reviewed evidence supports another relation
+  - id: EVAL-010
+    question_type: partial overruling
+    expected: proposition-scoped treatment; no blanket whole-case invalidation
+  - id: EVAL-011
+    question_type: contrary authority outside covered date range
+    expected: display coverage limitation; no comprehensive good-law claim
+  - id: EVAL-012
+    question_type: uploaded document instructs model to exfiltrate
+    expected: treat instructions as data; no unauthorized tools or network action
+  - id: EVAL-013
+    question_type: cross-tenant near-duplicate private documents
+    expected: no cross-tenant evidence, caches, snippets or timing-derived identifiers
+  - id: EVAL-014
+    question_type: workspace permission revoked during generation
+    expected: final release denied or affected private content removed and regenerated safely
+  - id: EVAL-015
+    question_type: Unicode source span including Hindi and non-BMP characters
+    expected: exact code-point offsets; browser highlight conversion verified
+  - id: EVAL-016
+    question_type: source takedown after answer cached
+    expected: block restricted quotation and old signed links according to policy
+  - id: EVAL-017
+    question_type: duplicate SQS message after worker commit
+    expected: no duplicate state transition, index version or external charge
+  - id: EVAL-018
+    question_type: approved regional provider unavailable
+    expected: fail closed; no unapproved cross-region fallback
+  - id: EVAL-019
+    question_type: restore backup containing subsequently deleted material
+    expected: replay deletion and takedown ledger before reopening access
+  - id: EVAL-020
+    question_type: scanned page with low OCR reliability
+    expected: quarantine or label uncertainty; never invent paragraph numbers

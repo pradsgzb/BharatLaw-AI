@@ -1,0 +1,26 @@
+digraph "07_deletion" {
+	bgcolor=white fontname=Lato fontsize=14 nodesep=0.28 pad=0.16 rankdir=TB ranksep=0.34 splines=polyline
+	node [color="#A6B8C4" fillcolor="#F3F5F7" fontcolor="#18344B" fontname=Lato fontsize=14 margin="0.16,0.12" penwidth=1.1 shape=box style="rounded,filled"]
+	edge [arrowsize=0.7 color="#5D7687" fontcolor="#18344B" fontname=Lato fontsize=11]
+	a [label="Authorized deletion request" color="#18344B" fillcolor="#18344B" fontcolor=white]
+	b [label="Revoke ordinary access immediately
+Invalidate search, cache and download access"]
+	c [label="Retention obligation
+or legal hold?" fillcolor="#FFF1D5" margin="0.09,0.06" shape=diamond]
+	d [label="Restricted retention
+No normal research access
+Re-evaluate on hold release" color="#BA872C" fillcolor="#FFF1D5"]
+	e [label="Purge permitted copies
+Objects / text / vectors / exports / checkpoints"]
+	f [label="Verify receipts and residual obligations
+Record provider and backup limitations"]
+	g [label="Complete only when the policy criteria are met
+Replay deletion controls after restore" color="#167D8D" fillcolor="#EDF5F7"]
+	a -> b
+	b -> c
+	c -> d [label=Yes]
+	c -> e [label=No]
+	d -> e [label="Hold released"]
+	e -> f
+	f -> g
+}

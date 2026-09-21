@@ -1,0 +1,28 @@
+digraph "11_run_states" {
+	bgcolor=white fontname=Lato fontsize=14 nodesep=0.28 pad=0.16 rankdir=TB ranksep=0.34 splines=polyline
+	node [color="#A6B8C4" fillcolor="#F3F5F7" fontcolor="#18344B" fontname=Lato fontsize=14 margin="0.16,0.12" penwidth=1.1 shape=box style="rounded,filled"]
+	edge [arrowsize=0.7 color="#5D7687" fontcolor="#18344B" fontname=Lato fontsize=11]
+	q [label=queued]
+	p [label=planning]
+	c [label=needs_clarification color="#BA872C" fillcolor="#FFF1D5"]
+	r [label=retrieving]
+	d [label=drafting]
+	v [label=verifying]
+	w [label=awaiting_review color="#BA872C" fillcolor="#FFF1D5"]
+	ok [label=completed color="#167D8D" fillcolor="#EDF5F7"]
+	partial [label="partial / abstained" color="#BA872C" fillcolor="#FFF1D5"]
+	a [label="Any active state"]
+	x [label="failed / cancelled" color="#B6584B" fillcolor="#FBE9E7"]
+	q -> p
+	p -> r
+	r -> d
+	d -> v
+	p -> c
+	c -> q [label="Revised plan"]
+	v -> w
+	w -> ok [label=Approved]
+	v -> ok
+	v -> partial
+	w -> partial
+	a -> x [label="Failure / cancellation"]
+}

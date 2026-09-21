@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/bharatlaw/contracts/research_request.schema.json",
+  "title": "BharatLaw research_request v1",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "workspace_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "question": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 12000
+    },
+    "language": {
+      "type": "string",
+      "enum": [
+        "en",
+        "hi"
+      ]
+    },
+    "research_mode": {
+      "type": "string",
+      "enum": [
+        "contemporaneous",
+        "retrospective_analysis"
+      ]
+    },
+    "depth": {
+      "type": "string",
+      "enum": [
+        "quick",
+        "deep"
+      ]
+    },
+    "jurisdiction_key": {
+      "type": "string"
+    },
+    "event_date": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "law_as_of": {
+      "type": "string",
+      "format": "date"
+    },
+    "authority_cutoff": {
+      "type": "string",
+      "format": "date"
+    },
+    "include_private_documents": {
+      "type": "boolean"
+    },
+    "corpus_release_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "workspace_id",
+    "question",
+    "language",
+    "research_mode",
+    "depth",
+    "jurisdiction_key",
+    "law_as_of",
+    "authority_cutoff",
+    "include_private_documents"
+  ]
+}

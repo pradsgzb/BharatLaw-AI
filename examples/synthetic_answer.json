@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0",
+  "answer_id": "571f47c6-af30-5915-bf8e-dd81d0076491",
+  "run_id": "a4743613-041f-54d3-a7b2-3176dc82bc89",
+  "status": "answered",
+  "language": "en",
+  "direct_response": "This is a synthetic software test, not a statement of Indian law.",
+  "law_as_of": "2020-01-01",
+  "authority_cutoff": "2020-01-01",
+  "corpus_release_id": "7366f835-cead-5340-abd7-f5a8a2e9365a",
+  "claims": [
+    {
+      "claim_id": "C1",
+      "text": "The fixture requires review of a blue fixture before publication.",
+      "kind": "legal_proposition",
+      "support_status": "supported",
+      "supporting_evidence": [
+        "E1"
+      ],
+      "contrary_evidence": []
+    }
+  ],
+  "citations": [
+    {
+      "handle": "E1",
+      "span_id": "296a51d4-efbe-5e76-b8ea-38380908aab7",
+      "source_class": "public_authority",
+      "source_title": "SYNTHETIC — Training Instrument (not Indian law)",
+      "display_citation": "SYNTHETIC FIXTURE ONLY",
+      "pinpoint": "Fixture section 1",
+      "viewer_path": "/v1/source-spans/296a51d4-efbe-5e76-b8ea-38380908aab7",
+      "official_url": null,
+      "excerpt": "A blue fixture must be reviewed before publication.",
+      "source_sha256": "88e36e166c6a744831f4d045c5f220be02f2bd6e57c64b2432de889db964a293",
+      "role_label": "operative_text",
+      "opinion_type": "not_applicable"
+    }
+  ],
+  "assumptions": [
+    "Synthetic fixture mode is enabled only in local tests."
+  ],
+  "limitations": [
+    "Not a real legal source."
+  ],
+  "clarifying_questions": [],
+  "coverage": {
+    "source_keys": [
+      "fixture"
+    ],
+    "court_keys": [],
+    "covered_through": "2020-01-01",
+    "last_successful_sync_at": null,
+    "known_gaps": [
+      "No actual Indian law has been loaded."
+    ]
+  },
+  "verification": {
+    "deterministic_integrity_passed": true,
+    "semantic_assessment": "supported",
+    "lawyer_reviewed": false,
+    "verifier_profile": "synthetic-fixture-only"
+  }
+}

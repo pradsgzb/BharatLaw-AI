@@ -1,0 +1,56 @@
+schema_version: '1.0'
+environment: development
+production_deployment_authorized: false
+allow_synthetic_corpus: false
+private_uploads_enabled: false
+hindi_enabled: false
+primary_region: ap-south-1
+rights_fail_closed: true
+generator_profile: null
+embedding_profile: null
+reranker_profile: null
+embedding_dimensions: 1024
+provider_routes: []
+processing:
+  default_data_class: confidential_query
+  india_only_mode: true
+  cross_region_profiles_allowed: false
+  train_on_customer_content: false
+  log_prompt_bodies: false
+retrieval:
+  lexical_candidates: 80
+  vector_candidates: 80
+  rrf_constant: 60
+  rerank_candidates: 80
+  evidence_passages: 16
+  evidence_token_budget: 12000
+  max_search_variants: 3
+  max_graph_neighbors: 20
+research:
+  quick_deadline_seconds: 60
+  deep_deadline_seconds: 120
+  max_tool_calls: 8
+  max_parallel_search_workers: 2
+  max_repair_attempts: 1
+  max_clarification_rounds: 2
+  max_run_cost: 2.0
+  currency: USD
+  stream_unverified_tokens: false
+uploads:
+  max_bytes: 52428800
+  max_pages: 500
+  allowed_mime_types:
+  - application/pdf
+  presigned_url_ttl_seconds: 300
+retention:
+  approved_policy_version: null
+  private_launch_blocked_until_approved: true
+  security_log_retention_days: null
+  private_document_retention_days: null
+  raw_model_payload_logging: false
+slo_targets:
+  search_p95_seconds: 3
+  quick_research_p95_seconds: 60
+  availability_percent: 99.9
+  metadata_rpo_minutes: 15
+  service_rto_hours: 4

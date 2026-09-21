@@ -1,0 +1,31 @@
+digraph "09_application_erd" {
+	bgcolor=white fontname=Lato fontsize=14 nodesep=0.28 pad=0.16 rankdir=TB ranksep=0.34 splines=polyline
+	node [color="#A6B8C4" fillcolor="#F3F5F7" fontcolor="#18344B" fontname=Lato fontsize=14 margin="0.16,0.12" penwidth=1.1 shape=box style="rounded,filled"]
+	edge [arrowsize=0.7 color="#5D7687" fontcolor="#18344B" fontname=Lato fontsize=11]
+	tenant [label="Tenant / organization"]
+	workspace [label="Workspace / matter"]
+	membership [label="User membership
+Role + permission revision"]
+	run [label="Research run
+Plan + release + policy"]
+	evidence [label="Run evidence
+E1 / E2 / E3"]
+	answer [label="Answer revision"]
+	claim [label="Material claims"]
+	link [label="Claim-evidence links"]
+	source [label="Canonical public span
+or authorized private span" fillcolor="#EDF5F7" shape=cylinder]
+	checks [label="Verification checks
+Integrity / support / review"]
+	tenant -> workspace
+	workspace -> run
+	membership -> workspace [label=authorizes]
+	run -> evidence
+	run -> answer
+	answer -> claim
+	claim -> link
+	link -> evidence
+	evidence -> source
+	checks -> claim [label=evaluates]
+	ranksep=0.16
+}

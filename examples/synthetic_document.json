@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0",
+  "is_synthetic": true,
+  "document_id": "bb87eef5-dbf5-5526-8ebd-619da480c0d4",
+  "document_version_id": "9515684a-d03a-5cfc-b295-e0a5c367589d",
+  "canonical_key": "fixture:training-instrument",
+  "document_type": "act",
+  "title": "SYNTHETIC — Training Instrument (not Indian law)",
+  "jurisdiction_key": "FIXTURE",
+  "language": "en",
+  "representation_kind": "synthetic_fixture",
+  "publication_date": "2020-01-01",
+  "edition_as_of": "2020-01-01",
+  "decision_date": null,
+  "source": {
+    "source_id": "7c7e36d7-1336-5166-a07a-0dd7ad187188",
+    "artifact_id": "84663a41-c847-570c-8914-0b99ebcbcde5",
+    "source_url": "https://example.org/synthetic-training-instrument.txt",
+    "fetched_at": "2026-09-19T00:00:00Z",
+    "artifact_sha256": "88e36e166c6a744831f4d045c5f220be02f2bd6e57c64b2432de889db964a293",
+    "media_type": "text/plain",
+    "object_version": "fixture-v1",
+    "policy_id": "87b756a7-d466-50d1-8bd7-1f3f86b101e2"
+  },
+  "extraction": {
+    "extraction_id": "14d0aec0-8310-5c38-ab39-9fbddb3cbf13",
+    "parser_profile": "fixture-native-v1",
+    "config_sha256": "bcc63d7b5ec03c760c29cc5b347afb78f88ea8e2529c478dfae1a6af5e4d7d6a",
+    "used_ocr": false,
+    "review_state": "fixture_only"
+  },
+  "units": [
+    {
+      "unit_id": "a1b145de-6d9b-5de4-a1cb-a1e412475ca4",
+      "unit_version_id": "fcb3174f-d876-5602-a27f-90f67f7958c7",
+      "parent_unit_id": null,
+      "unit_type": "section",
+      "unit_key": "section:1",
+      "display_label": "Fixture section 1",
+      "structural_path": [
+        "Training Instrument",
+        "Fixture section 1"
+      ],
+      "original_paragraph_label": null,
+      "opinion_type": "not_applicable",
+      "role_label": "operative_text",
+      "exact_text": "SYNTHETIC TRAINING TEXT ONLY. A blue fixture must be reviewed before publication.",
+      "text_sha256": "88e36e166c6a744831f4d045c5f220be02f2bd6e57c64b2432de889db964a293",
+      "language": "en",
+      "spans": [
+        {
+          "span_id": "296a51d4-efbe-5e76-b8ea-38380908aab7",
+          "char_start": 30,
+          "char_end": 81,
+          "quote_sha256": "eabea8100948f2ec98570d7816684f4955c34af55f71804972dae51804a55225",
+          "anchors": [
+            {
+              "pdf_page_number": 1,
+              "printed_page_label": "fixture 1",
+              "bbox": [
+                0.1,
+                0.2,
+                0.9,
+                0.3
+              ],
+              "origin": "top-left"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

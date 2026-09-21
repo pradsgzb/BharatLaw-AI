@@ -1,0 +1,46 @@
+schema_version: "1.0"
+# Observed source addresses, not permission approvals or promises of bulk APIs.
+# No adapter may fetch while enabled=false or its operation permission is absent.
+sources:
+  - source_key: legislative_department_constitution
+    name: Legislative Department — Constitution
+    base_url: https://www.legislative.gov.in/
+    allowed_hosts: [www.legislative.gov.in, legislative.gov.in]
+    acquisition_mode: manual_manifest
+    enabled: false
+    policy_status: pending
+    observed_document_url: https://www.legislative.gov.in/static/uploads/2025/07/88cca69e868e50b217f855be2fb8bdba.pdf
+    observed_edition_as_of: "2026-05-01"
+    terms_url: null
+    reviewer_reference: null
+  - source_key: india_code
+    name: India Code
+    base_url: https://indiacode.gov.in/
+    legacy_alias: https://www.indiacode.nic.in/
+    allowed_hosts: [indiacode.gov.in, www.indiacode.gov.in]
+    acquisition_mode: manual_manifest
+    enabled: false
+    policy_status: pending
+    terms_url: null
+    reviewer_reference: null
+  - source_key: supreme_court_escr
+    name: Supreme Court Reports
+    base_url: https://scr.sci.gov.in/scrsearch/
+    allowed_hosts: [scr.sci.gov.in, www.sci.gov.in, sci.gov.in]
+    acquisition_mode: manual_manifest
+    enabled: false
+    policy_status: pending
+    observed_access_control: captcha_on_search
+    terms_url: null
+    reviewer_reference: null
+# Gazette, High Court, licensed and state-law adapters require their own records.
+# Any new download host/redirect requires an explicit allowlist review.
+permission_defaults:
+  can_fetch: false
+  can_store: false
+  can_index: false
+  can_send_to_model: false
+  can_display_excerpt: false
+  can_redistribute: false
+  can_train: false
+  can_evaluate: false

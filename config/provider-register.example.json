@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "status": "approval_required",
+  "profiles": [],
+  "required_fields": [
+    "profile_key",
+    "capability",
+    "provider",
+    "model_id",
+    "model_revision",
+    "dimensions_if_embedding",
+    "allowed_data_classes",
+    "allowed_processing_regions",
+    "retention_terms_reference",
+    "training_disabled_verified",
+    "contract_review_reference",
+    "unit_price_currency",
+    "unit_price_version",
+    "input_token_price",
+    "output_token_price",
+    "effective_at",
+    "fallback_profile_keys"
+  ],
+  "invariants": [
+    "No unapproved model routes.",
+    "A fallback must satisfy the original data-class and region policy.",
+    "Validate regional model availability and quota before deployment.",
+    "Do not record credentials or secrets here."
+  ]
+}
